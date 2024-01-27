@@ -1,0 +1,633 @@
+use: MT_lift_block
+
+data_subsampling_cfg:
+  use: True
+  subsampling_step: 8
+  subsample_after_smoothening: True
+
+  filter_out_zero_action_demo_steps: True
+  # Filter Type (traj, step)
+  filter_type: traj
+  savgol_filter:
+    use: True
+    window_length: 31
+    polyorder: 3
+  
+  proprio_history:
+    use: False
+    size: 4
+  
+  actions_future:
+    use: False
+    steps: [2, 4, 6, 8]
+
+image_crop_cfg:
+  use: True
+  # static:
+  #   org_size: [720, 1280]
+  #   start_uv: [0, 560]
+  #   crop_size: [500, 500]
+  # For top-down
+  static:
+    org_size: [720, 1280]
+    start_uv: [0, 400]
+    crop_size: [500, 500]
+  hand:
+    org_size: [480, 640]
+    start_uv: [0, 160]
+    crop_size: [480, 480]
+
+
+ST_peg_insert_circular:
+  type: st_peg_insert_circular
+  is_parameterized: True
+  common_data_dir: /home/mohit/experiment_results/object_centric/real_world/greenblock_peg_insert_May7
+
+  data_dirs:
+    peg_insert_circular:
+      0:
+        data: /home/mohit/experiment_results/object_centric/real_world/greenblock_peg_insert_May7
+
+        # variations: [0]
+        train_variations: [0]
+        # These are variations on which we run eval (i.e. test our trained policy.
+        # This can be different than train_variations for instruction generalization.
+        eval_variations: [0]
+        train_demos: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+        val_demos: [13, 14, 15, 30, 31, 32]
+        # num_train_demos: 195
+        # num_val_demos: 15
+
+  # Should we record eval results for each env.
+  # Set True since limited envs only.
+  record_per_env_eval: True
+  eval_on_heldout_envs: False
+  num_demos_train_per_task: 100
+  num_demos_val_per_task: 10
+  episode_len: 650
+  names: []
+  heldout_env_names: []
+  camera_names: ['static', 'hand']
+  normalize_actions:
+    use: True
+    # These values are calculated and updated
+    values_set: False
+    values:
+      min: ???
+      max: ???
+      mean: ???
+      std: ???
+
+ST_peg_insert_circular_2:
+  type: st_peg_insert_circular_2
+  is_parameterized: True
+  common_data_dir: /media/hdd/mohit/experiment_results/object_centric/real_world/try_02_May_8
+
+  data_dirs:
+    peg_insert_circular:
+      0:
+        # data: /media/hdd/mohit/experiment_results/object_centric/real_world/try_02_May_8
+        data: /home/mohit/experiment_results/object_centric/real_world/try_02_May_8/
+
+        # variations: [0]
+        train_variations: [0]
+        # These are variations on which we run eval (i.e. test our trained policy.
+        # This can be different than train_variations for instruction generalization.
+        eval_variations: [0]
+        train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 19, 21, 22, 23]
+        val_demos: [5, 11, 16, 20, 24]
+        # num_train_demos: 195
+        # num_val_demos: 15
+
+  # Should we record eval results for each env.
+  # Set True since limited envs only.
+  record_per_env_eval: True
+  eval_on_heldout_envs: False
+  num_demos_train_per_task: 100
+  num_demos_val_per_task: 10
+  episode_len: 500
+  names: []
+  heldout_env_names: []
+  camera_names: ['static', 'hand']
+  normalize_actions:
+    use: True
+    # These values are calculated and updated
+    values_set: False
+    values:
+      min: ???
+      max: ???
+      mean: ???
+      std: ???
+    
+
+ST_peg_insert_circular_3:
+  type: st_peg_insert_circular_3
+  is_parameterized: True
+  common_data_dir: /media/hdd/mohit/experiment_results/object_centric/real_world/try_03_May_10
+
+  data_dirs:
+    peg_insert_circular:
+      0:
+        data: /home/mohit/experiment_results/object_centric/real_world/try_03_May_10/
+
+        # variations: [0]
+        train_variations: [0]
+        # These are variations on which we run eval (i.e. test our trained policy.
+        # This can be different than train_variations for instruction generalization.
+        eval_variations: [0]
+        train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 19, 21, 22, 23, 25, 26, 27]
+        val_demos: [5, 11, 16, 20, 24, 28]
+        # num_train_demos: 195
+        # num_val_demos: 15
+
+  # Should we record eval results for each env.
+  # Set True since limited envs only.
+  record_per_env_eval: True
+  eval_on_heldout_envs: False
+  num_demos_train_per_task: 100
+  num_demos_val_per_task: 10
+  episode_len: 500
+  names: []
+  heldout_env_names: []
+  camera_names: ['static', 'hand']
+  # State noise injection only added to proprio.
+  state_noise: 
+    use: False
+    proprio_noise_min: [-0.002, -0.002, -0.002]
+    proprio_noise_max: [ 0.002,  0.002,  0.002]
+  use_joints_in_proprio: True
+
+  normalize_actions:
+    use: True
+    # 'mean_std', 'tanh'
+    type: 'mean_std'
+    # These values are calculated and updated
+    values_set: False
+    values:
+      min: ???
+      max: ???
+      mean: ???
+      std: ???
+
+
+MT_lift_block:
+  type: MT_lift_block_00
+  is_parameterized: True
+  common_data_dir: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_00_May_14
+
+  data_dirs:
+    # lift_blue_block:
+      # 0:
+      #   data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_00_May_14
+      #   # train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 9]
+      #   # val_demos: [5, 10]
+      #   # Below demos have a unique blue object in scene
+      #   train_demos: [4, 5, 6, 9]
+      #   val_demos: [8]
+      #   subsample_after_smoothening_cfg:
+      #     savgol_window_traj_idx: [0, 100]
+      #     savgol_window_lengths: [31, 31]
+
+      # 1:
+      #   data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_01_May_19/
+      #   train_demos: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 17]
+      #   val_demos: [4, 8, 12, 16]
+      #   subsample_after_smoothening_cfg:
+      #     savgol_window_traj_idx: [0, 100]
+      #     savgol_window_lengths: [31, 31]
+      
+      # 2:
+      #   data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_02_May_20
+      #   train_demos: [0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25]
+      #   val_demos: [4, 9, 13, 18, 22]
+      #   subsample_after_smoothening_cfg:
+      #     savgol_window_traj_idx: [0, 100]
+      #     savgol_window_lengths: [31, 31]
+
+      # 3:
+      #   # Robustness reach (short)
+      #   data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_reach_robust_00_May_21
+      #   train_demos: [0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 17, 19, 20]
+      #   val_demos: [3, 6, 10, 13, 18]
+      #   subsample_after_smoothening_cfg:
+      #     savgol_window_traj_idx: [0, 50]
+      #     savgol_window_lengths: [31, 31]
+
+    # lift_blue_stick:
+    #   0:
+    #     train_demos: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 17]
+    #     val_demos: [4, 8, 12, 16]
+    #     subsample_after_smoothening_cfg:
+    #       savgol_window_traj_idx: [0, 100]
+    #       savgol_window_lengths: [31, 31]
+      
+    lift_green_block:
+      # 0:
+      #   data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/green_block_00_May_14
+      #   train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 20, 21, 22]
+      #   val_demos: [5, 9, 15, 19, 23]
+      #   subsample_after_smoothening_cfg:
+      #     savgol_window_traj_idx: [0, 100]
+      #     # 51 for (0, 100) and 21 for (100, end)
+      #     savgol_window_lengths: [31, 31]
+      # Same variation but different data
+      1:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/green_block_00_May_15
+        train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 29]
+        val_demos: [5, 11, 15, 20, 24, 28]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          # 51 for (0, 100) and 21 for (100, end)
+          savgol_window_lengths: [31, 31]
+      2:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/green_block_reach_robust_00_May_17
+        train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 10, 11, 12, 13, 16, 17, 18, 19, 20]
+        val_demos: [5, 9, 14, 15]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          savgol_window_lengths: [31, 31]
+      
+    lift_yellow_block:
+      # 0:
+      #   data: /mnt/hdd/mohit/experiment_results/object_centric/real_world/pickup_blocks/yellow_block_00_May_14
+      #   train_demos: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 24, 25, 27]
+      #   val_demos: [4, 8, 13, 18, 23, 26]
+      #   subsample_after_smoothening_cfg:
+      #     savgol_window_traj_idx: [0, 100]
+      #     savgol_window_lengths: [31, 31]
+      1:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/yellow_block_00_May_16
+        train_demos: [2, 3, 5, 6, 8, 9, 10, 12, 13, 14, 19, 20, 21, 22, 24, 25, 26, 27, 28, 31, 32, 34, 35, 36, 38]
+        val_demos: [7, 11, 15, 23, 29, 30, 37]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          savgol_window_lengths: [31, 31]
+      
+    # lift_pink_flower:
+    #   0: 
+    #     data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/pink_flower_00_May_19
+    #     train_demos: [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14]
+    #     val_demos: [3, 7, 11]
+    #     subsample_after_smoothening_cfg:
+    #       savgol_window_traj_idx: [0, 100]
+    #       savgol_window_lengths: [31, 31]
+
+    lift_pink_holes:
+      0:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/pink_holes_00_May_19
+        train_demos: [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 15, 16, 17, 19]
+        val_demos: [3, 7, 11, 14, 18]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          savgol_window_lengths: [31, 31]
+      1:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/pink_holes_01_May_20
+        train_demos: [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 17, 18, 19, 21, 22, 23, 24, 26, 27, 29, 30, 31]
+        val_demos: [3, 7, 11, 16, 20, 25, 28]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          savgol_window_lengths: [31, 31]
+      2:
+        # Robustness reach (short)
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/pink_holes_reach_robust_00_May_21
+        train_demos: [0, 1, 2, 4, 5, 6, 7, 9, 10, 12, 13, 14, 16, 18, 19, 20, 21, 23, 24, 25, 27]
+        val_demos: [3, 8, 11, 15, 17, 22, 26]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 50]
+          savgol_window_lengths: [31, 31]
+
+  # Should we record eval results for each env.
+  # Set True since limited envs only.
+  record_per_env_eval: True
+  eval_on_heldout_envs: False
+  num_demos_train_per_task: 100
+  num_demos_val_per_task: 10
+  episode_len: 500
+  names: []
+  heldout_env_names: []
+  camera_names: ['static', 'hand']
+  # State noise injection only added to proprio.
+  state_noise: 
+    use: False
+    proprio_noise_min: [-0.002, -0.002, -0.002]
+    proprio_noise_max: [ 0.002,  0.002,  0.002]
+  use_joints_in_proprio: True
+
+  normalize_actions:
+    use: True
+    # 'mean_std', 'tanh', 'tanh_fix'
+    type: 'tanh_fix'
+    # These values are calculated and updated
+    values_set: False
+    values:
+      min: ???
+      max: ???
+      mean: ???
+      std: ???
+
+
+MT_lift_crop:
+  type: MT_lift_01
+  is_parameterized: True
+  common_data_dir: /mnt/hdd/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_00_May_14
+
+  # train_types: ['left', 'middle', 'right']
+  train_types: ['left', 'right']
+
+  data_dirs:
+    lift_blue_block:
+      1:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_01_May_19/
+        # train_demos: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 17]
+        # val_demos: [4, 8, 12, 16]
+        train_demos_left: [0, 1, 3, 4, 5]
+        val_demos_left: [2,]
+        train_demos_middle: [6, 7, 9, 10, 11,]
+        val_demos_middle: [8]
+        train_demos_right: [12, 13, 15, 16, 17]
+        val_demos_right: [14]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          savgol_window_lengths: [31, 31]
+      
+      2:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_02_May_20
+        # After cropping
+        train_demos_left: [2, 20, 21, 23, 24, 25]
+        val_demos_left: [22]
+        train_demos_middle: [5, 6, 16, 17, 19]
+        val_demos_middle: [7, 18]
+        train_demos_right: [8, 9, 10, 12, 13, 15]
+        val_demos_right: [11, 14]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          savgol_window_lengths: [31, 31]
+
+      3:
+        # Robustness reach (short)
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_reach_robust_00_May_21
+        train_demos: [0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 17, 19, 20]
+        val_demos: [3, 6, 10, 13, 18]
+        train_demos_left: [5, 6, 7, 8, 10,]
+        val_demos_left: [9]
+        train_demos_middle: [11, 12, 13, 15, 16, ]
+        val_demos_middle: [14]
+        train_demos_right: [0, 1, 2, 4, 17, 18, 20]
+        val_demos_right: [3, 19]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 50]
+          savgol_window_lengths: [31, 31]
+
+    # lift_blue_stick:
+    #   0:
+    #     data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_stick_01_May_19
+    #     train_demos: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 17]
+    #     val_demos: [4, 8, 12, 16]
+    #     subsample_after_smoothening_cfg:
+    #       savgol_window_traj_idx: [0, 100]
+    #       savgol_window_lengths: [31, 31]
+      
+    # lift_green_block:
+    #   0:
+    #     data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/green_block_00_May_14
+    #     train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 20, 21, 22]
+    #     val_demos: [5, 9, 15, 19, 23]
+    #     subsample_after_smoothening_cfg:
+    #       savgol_window_traj_idx: [0, 100]
+    #       # 51 for (0, 100) and 21 for (100, end)
+    #       savgol_window_lengths: [31, 31]
+    #   # Same variation but different data
+    #   1:
+    #     data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/green_block_00_May_15
+    #     train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 29]
+    #     val_demos: [5, 11, 15, 20, 24, 28]
+    #     subsample_after_smoothening_cfg:
+    #       savgol_window_traj_idx: [0, 100]
+    #       # 51 for (0, 100) and 21 for (100, end)
+    #       savgol_window_lengths: [31, 31]
+    #   2:
+    #     data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/green_block_reach_robust_00_May_17
+    #     train_demos: [0, 1, 2, 3, 4, 6, 7, 8, 10, 11, 12, 13, 16, 17, 18, 19, 20]
+    #     val_demos: [5, 9, 14, 15]
+    #     subsample_after_smoothening_cfg:
+    #       savgol_window_traj_idx: [0, 100]
+    #       savgol_window_lengths: [31, 31]
+      
+    # lift_yellow_block:
+    #   0:
+    #     data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/yellow_block_00_May_14
+    #     train_demos: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 24, 25, 27]
+    #     val_demos: [4, 8, 13, 18, 23, 26]
+    #     subsample_after_smoothening_cfg:
+    #       savgol_window_traj_idx: [0, 100]
+    #       savgol_window_lengths: [31, 31]
+    #   1:
+    #     data: /mnt/hdd/mohit/experiment_results/object_centric/real_world/pickup_blocks/yellow_block_00_May_16
+    #     train_demos: [2, 3, 5, 6, 8, 9, 10, 12, 13, 14, 19, 20, 21, 22, 24, 25, 26, 27, 28, 31, 32, 34, 35, 36, 38]
+    #     val_demos: [7, 11, 15, 23, 29, 30, 37]
+    #     subsample_after_smoothening_cfg:
+    #       savgol_window_traj_idx: [0, 100]
+    #       savgol_window_lengths: [31, 31]
+      
+    lift_pink_holes:
+      0:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/pink_holes_00_May_19
+        # train_demos: [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 15, 16, 17, 19]
+        # val_demos: [3, 7, 11, 14, 18]
+        # too many objs in [0, 1, 2, 3, 7, 8, 9, 10, 11]
+        # 5 is weird 2 objects in left
+        train_demos_left: [7, 8, 17, 19]
+        val_demos_left: [18]
+        train_demos_middle: [0, 1, 2, 4, 5, 15, 16]
+        val_demos_middle: [3, 6]
+        train_demos_right: [9, 11, 12, 13, 14]
+        val_demos_right: [10,]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          savgol_window_lengths: [31, 31]
+      1:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/pink_holes_01_May_20
+        # train_demos: [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 17, 18, 19, 21, 22, 23, 24, 26, 27, 29, 30, 31]
+        # val_demos: [3, 7, 11, 16, 20, 25, 28]
+        train_demos_left: [0, 1, 2, 4, 5, 7, 27, 28, 29]
+        val_demos_left: [3, 6]
+        train_demos_middle: [8, 9, 10, 12, 13, 15, 16, 18]
+        val_demos_middle: [11, 14, 17]
+        # middle short -> 15, 16, 17, 18
+        train_demos_right: [19, 20, 21, 23, 24, 26, 30, 31]
+        val_demos_right: [22, 25]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 100]
+          savgol_window_lengths: [31, 31]
+      2:
+        # Robustness reach (short)
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/pink_holes_reach_robust_00_May_21
+        # train_demos: [0, 1, 2, 4, 5, 6, 7, 9, 10, 12, 13, 14, 16, 18, 19, 20, 21, 23, 24, 25, 27]
+        # val_demos: [3, 8, 11, 15, 17, 22, 26]
+        train_demos_left: [6, 7, 8, 11, 12, 13, 15, 24, 27]
+        val_demos_left: [9, 14, 26]
+        train_demos_middle: [0, 1, 2, 3,]
+        val_demos_middle: [4]
+        train_demos_right: [16, 17, 19, 20, 22,]
+        val_demos_right: [18, 21,]
+
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 50]
+          savgol_window_lengths: [31, 31]
+
+  # Should we record eval results for each env.
+  # Set True since limited envs only.
+  record_per_env_eval: True
+  eval_on_heldout_envs: False
+  num_demos_train_per_task: 100
+  num_demos_val_per_task: 10
+  episode_len: 500
+  names: []
+  heldout_env_names: []
+  camera_names: ['static', 'hand']
+  # State noise injection only added to proprio.
+  state_noise: 
+    use: False
+    proprio_noise_min: [-0.002, -0.002, -0.002]
+    proprio_noise_max: [ 0.002,  0.002,  0.002]
+  use_joints_in_proprio: False
+
+  normalize_actions:
+    use: True
+    # 'mean_std', 'tanh', 'tanh_fix'
+    type: 'tanh_fix'
+    # These values are calculated and updated
+    values_set: False
+    values:
+      min: ???
+      max: ???
+      mean: ???
+      std: ???
+
+MT_liftTD_crop:
+  type: MT_lift_02
+  is_parameterized: True
+  common_data_dir: /mnt/hdd/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_00_May_14
+
+  # train_types: ['left', 'middle', 'right']
+  train_types: ['left', 'right']
+
+  data_dirs:
+    # lift_blue_block:
+      # 1:
+      #   data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks/blue_block_01_May_19/
+      #   # train_demos: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 17]
+      #   # val_demos: [4, 8, 12, 16]
+      #   train_demos_left: [0, 1, 3, 4, 5]
+      #   val_demos_left: [2,]
+      #   train_demos_middle: [6, 7, 9, 10, 11,]
+      #   val_demos_middle: [8]
+      #   train_demos_right: [12, 13, 15, 16, 17]
+      #   val_demos_right: [14]
+      #   subsample_after_smoothening_cfg:
+      #     savgol_window_traj_idx: [0, 100]
+      #     savgol_window_lengths: [31, 31]
+      
+    lift_green_block:
+      0:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks_topdown/green_block_topdown_00_May_23
+        train_demos_left: [15, 16, 17, 18, 19, 21, 22, 24, 25, 26, 27, 29]
+        val_demos_left: [20, 23, 28]
+        train_demos_middle: []
+        val_demos_middle: []
+        train_demos_right: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14]
+        val_demos_right: [4, 8, 13]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 60]
+          # 51 for (0, 100) and 21 for (100, end)
+          savgol_window_lengths: [31, 31]
+      1:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks_topdown/green_block_topdown_reach_robust_00_May_24
+        train_demos_left: [15, 19, 21, 22, 24, 25, 26, 27, 29, 30, 31, 32]
+        val_demos_left: [20, 23, 28]
+        train_demos_middle: []
+        val_demos_middle: []
+        train_demos_right: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14]
+        val_demos_right: [4, 8, 13]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 60]
+          # 51 for (0, 100) and 21 for (100, end)
+          savgol_window_lengths: [31, 31]
+      2:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks_topdown/green_block_reach_robust_01_May_25
+        train_demos_left: [11, 12, 13, 15, 16, 17, 18]
+        val_demos_left: [14,]
+        train_demos_middle: []
+        val_demos_middle: []
+        train_demos_right: [0, 1, 2, 3, 5, 6, 7, 9, 10]
+        val_demos_right: [4, 8]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 60]
+          # 51 for (0, 100) and 21 for (100, end)
+          savgol_window_lengths: [31, 31]
+      
+    lift_pink_holes:
+      0:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks_topdown/pink_block_topdown_00_May_23
+        train_demos_left: [16, 17, 18, 19, 21, 22, 24, 25, 26, 27, 29, 30, 31]
+        val_demos_left: [20, 23, 28]
+        train_demos_middle: []
+        val_demos_middle: []
+        train_demos_right: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14, 15]
+        val_demos_right: [4, 8, 13,]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 60]
+          savgol_window_lengths: [31, 31]
+      1:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks_topdown/pink_holes_topdown_reach_robust_00_May_24
+        train_demos_left: [16, 17, 18, 19, 21, 22, 24, 25, 26, 27, 29, 30, 31,]
+        val_demos_left: [20, 23, 28]
+        train_demos_middle: []
+        val_demos_middle: []
+        train_demos_right: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14]
+        val_demos_right: [4, 8, 13]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 60]
+          # 51 for (0, 100) and 21 for (100, end)
+          savgol_window_lengths: [31, 31]
+      2:
+        data: /home/mohit/experiment_results/object_centric/real_world/pickup_blocks_topdown/pink_holes_reach_robust_01_May_25
+        train_demos_left: [10, 11, 13, 14, 15, 17, 18, 19]
+        val_demos_left: [12, 16]
+        train_demos_middle: []
+        val_demos_middle: []
+        train_demos_right: [0, 1, 2, 3, 5, 6, 7, 9]
+        val_demos_right: [4, 8]
+        subsample_after_smoothening_cfg:
+          savgol_window_traj_idx: [0, 60]
+          # 51 for (0, 100) and 21 for (100, end)
+          savgol_window_lengths: [31, 31]
+
+  # Should we record eval results for each env.
+  # Set True since limited envs only.
+  record_per_env_eval: True
+  eval_on_heldout_envs: False
+  num_demos_train_per_task: 100
+  num_demos_val_per_task: 10
+  episode_len: 500
+  names: []
+  heldout_env_names: []
+  camera_names: ['static', 'hand']
+  # State noise injection only added to proprio.
+  state_noise: 
+    use: False
+    proprio_noise_min: [-0.002, -0.002, -0.002]
+    proprio_noise_max: [ 0.002,  0.002,  0.002]
+  use_joints_in_proprio: False
+
+  normalize_actions:
+    use: True
+    # 'mean_std', 'tanh', 'tanh_fix'
+    type: 'tanh_fix'
+    # These values are calculated and updated
+    values_set: False
+    values:
+      min: ???
+      max: ???
+      mean: ???
+      std: ???

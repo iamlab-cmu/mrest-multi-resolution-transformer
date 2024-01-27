@@ -1,0 +1,200 @@
+data:
+  save: True
+  data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/
+  prefix: 'sawyer_shape_gen_multiskill_procedural_with_bottles_fov45'
+  vary: target
+  num_demos_per_env_type:
+    train: 25
+    eval: 4
+
+seed: 8
+data_collect_types:
+  - train
+  # - eval
+  # - eval_1
+
+object_descriptions_standard:
+  milk:
+    - 'milk'
+  coke:
+    - 'coke'
+  pepsi:
+    - 'pepsi'
+  bread:
+    - 'bread'
+  bottle:
+    - 'bottle'
+  block_red:
+    - 'red block'
+  block_blue:
+    - 'blue block'
+  block_green:
+    - 'green block'
+  block_orange:
+    - 'orange block'
+  block_pink:
+    - 'pink block'
+  block_purple:
+    - 'purple block'
+  block_yellow:
+    - 'yellow block'
+  block_black:
+    - 'black block'
+  red_mug:
+    - 'Red mug'
+  white_mug:
+   - 'White mug'
+  blue_mug:
+   - 'Blue mug'
+  pink_heel:
+   - 'Women pink shoe'
+  reebok_black_shoe:
+    - 'Men black shoe'
+  reebok_blue_shoe:
+    - 'Men blue shoe'
+  green_shoe:
+    - 'Men green shoe'
+  supplement0:
+    - 'White bottle'
+  supplement1:
+    - 'White bottle'
+  supplement2:
+    - 'White bottle'
+
+objects:
+  train: ['red_mug', 'white_mug', 'green_shoe', 'reebok_blue_shoe', 'supplement0', 'supplement2']
+  eval: ['reebok_black_shoe', 'pink_heel', 'blue_mug', 'supplement1']
+  all: ['red_mug', 'white_mug', 'blue_mug', 'green_shoe', 'reebok_blue_shoe', 'reebok_black_shoe', 'pink_heel', 'supplement0', 'supplement1', 'supplement2']
+
+multiobj: True
+procedural: True
+multicolor_blocks: True
+blocks:
+  train: ['block_red', 'block_blue', 'block_green']
+  eval: ['block_red', 'block_blue', 'block_green']
+  # Set in code as train_colors + eval_colors
+  all: ???
+
+# faucet: 'faucetBase'
+# nut: 'RountNut'
+# peg: 'peg'
+# window: 'window'
+# door: 'door'
+# drawer: drawer
+
+skills:
+  use: 'all'
+  train:
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'reach_above'
+      - 'pick_and_place'
+  eval:
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'reach_above'
+      - 'pick_and_place'
+
+skill_descriptions_standard:
+  pick:
+    - "Pick <target>"
+  pick_and_place:
+    - "Pick and place <target>"
+  reach_above:
+    - "Reach above <target>"
+
+train:
+  only_use_block_objects: False
+  all_objects:
+    objects: ${objects.all}
+    blocks: ${blocks.all}
+
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ${blocks.train}
+    target_objects: ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs: 
+      1: 
+        distractors: ['green_shoe', 'reebok_blue_shoe', 'red_mug', 'white_mug', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 50
+        num_distractor_block_variations: 2
+
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ${blocks.train}
+    target_objects: ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1: 
+        distractors: ['green_shoe', 'reebok_blue_shoe', 'red_mug', 'white_mug', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 50
+        num_distractor_block_variations: 2
+  
+  reach_above:
+    skill_desc: ${skill_descriptions_standard.reach_above}
+    target_blocks: ${blocks.train}
+    target_objects: ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1: 
+        distractors: ['green_shoe', 'reebok_blue_shoe', 'red_mug', 'white_mug', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 50
+        num_distractor_block_variations: 2
+
+  object_description: ${object_descriptions_standard}
+  camera_names: 
+    - 'left_cap2'
+    - 'robot0_eye_in_hand_45'
+
+eval:
+  only_use_block_objects: False
+  all_objects:
+    objects: ${objects.all}
+    blocks: ${blocks.all}
+
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ${blocks.eval}
+    target_objects: ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs: 
+      1: 
+        distractors: ['reebok_black_shoe', 'pink_heel', 'blue_mug', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 15
+        num_distractor_block_variations: 2
+
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ${blocks.eval}
+    target_objects: ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1: 
+        distractors: ['reebok_black_shoe', 'pink_heel', 'blue_mug', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+  
+  reach_above:
+    skill_desc: ${skill_descriptions_standard.reach_above}
+    target_blocks: ${blocks.eval}
+    target_objects: ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1: 
+        distractors: ['reebok_black_shoe', 'pink_heel', 'blue_mug', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 25
+        num_distractor_block_variations: 2
+
+  object_description: ${object_descriptions_standard}
+  camera_names: 
+    - 'left_cap2'
+    - 'robot0_eye_in_hand_45'

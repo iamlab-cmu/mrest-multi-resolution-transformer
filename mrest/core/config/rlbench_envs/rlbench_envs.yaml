@@ -1,0 +1,99 @@
+use: MT_tasks4
+
+data_subsampling_cfg:
+  use: False
+  subsampling_step: 5
+  add_low_dim_state: False
+  only_predict_waypoints:
+    use: False
+    predict_absolute_positions: True
+
+  adaptive_subsample:
+    use: False
+    joint_threshold: 0.10
+
+  add_one_hot_timestep:
+    use: False
+    # 5 for insert onto square peg
+    max_steps: 5
+
+
+MT_tasks4:
+    # single_task insert_onto_peg
+    type: mt_tasks4
+    is_parameterized: True
+
+    # Noise (0.02), P-controller 0.5 (Not used)
+    common_data_dir: ''
+
+    use_action_from_pickle: True
+    data_dirs:
+      pick_and_lift_small_mrest:
+        # NOTE: 0 and 1 demos are not compatible with each other because of different scenes and waypoints
+        # 0:
+        #   data: /home/mohit/experiment_results/object_centric/rlbench_precision/data/hiveformer_01/multitask/pick_and_lift_small_ms/action_P_0.5_60_demos_wpnoise_0.01_off_0.005/pick_and_lift_small_ms
+        #   train_variations: [0, 1, 2, 3]
+        #   eval_variations: [0, 1, 2, 3]
+        #   num_train_demos: 50
+        #   num_val_demos: 10
+        1:
+          data: /home/mohit/experiment_results/object_centric/rlbench_precision/data/hiveformer_01/multitask/pick_and_lift_small_mrest/action_P_0.5_mag_0.03_220_demos_wp_noise_0.01_wp0_0.08/pick_and_lift_small_ms
+          train_variations: [0, 1, 2, 3]
+          eval_variations: [0, 1, 2, 3]
+          num_train_demos: 150
+          num_val_demos: 20
+
+      insert_onto_square_peg_mrest:
+        0:
+          # Noise (0.02), P-controller 0.5
+          data: /home/mohit/experiment_results/object_centric/rlbench_precision/data/hiveformer_01/multitask/insert_onto_square_peg_mrest/action_P_0.5_mag_0.03_demos_wp_noise_0.01/insert_onto_square_peg_mrest
+          train_variations: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+          # These are variations on which we run eval (i.e. test our trained policy.
+          # This can be different than train_variations for instruction generalization.
+          eval_variations: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+          # Number of demos per variation
+          num_train_demos: 35
+          num_val_demos: 20
+
+        1:
+          # Noise (0.02), P-controller 0.5
+          data: /home/mohit/experiment_results/object_centric/rlbench_precision/data/hiveformer_01/insert_onto_square_peg_mrest/action_P_0.5_220_demos_noise_0.002/insert_onto_square_peg_mrest
+          train_variations: [0]
+          # These are variations on which we run eval (i.e. test our trained policy.
+          # This can be different than train_variations for instruction generalization.
+          eval_variations: [0]
+          num_train_demos: 20
+          num_val_demos: 4
+        
+      place_shape_in_shape_sorter_mrest:
+        0:
+          data: /home/mohit/experiment_results/object_centric/rlbench_precision/data/hiveformer_01/multitask/place_shape_in_shape_sorter_mrest/action_P_0.5_110_demos_wpnoise_0.01/place_shape_in_shape_sorter_mrest
+          train_variations: [0, 1]
+          eval_variations: [0, 1]
+          num_train_demos: 100
+          num_val_demos: 10
+        1:
+          data: /home/mohit/experiment_results/object_centric/rlbench_precision/data/hiveformer_01/multitask/place_shape_in_shape_sorter_mrest/action_P_0.5_110_demos_wpnoise_0.01_off_0.008/place_shape_in_shape_sorter_mrest
+          train_variations: [0, 1]
+          eval_variations: [0, 1]
+          num_train_demos: 200
+          num_val_demos: 20
+
+      take_usb_out_of_computer_mrest_usb_inhand:
+        0:
+          data: /home/mohit/experiment_results/object_centric/rlbench_precision/data/hiveformer_01/multitask/take_usb_out_of_computer_mrest_usb_inhand/action_P_0.5_mag_0.03_220_demos_wp_noise_0.01/take_usb_out_of_computer_mrest_usb_inhand
+          train_variations: [0]
+          eval_variations: [0]
+          num_train_demos: 100
+          num_val_demos: 10
+        
+    # Should we record eval results for each env.
+    # Set True since limited envs only.
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    num_demos_train_per_task: 200
+    num_demos_val_per_task: 20
+    episode_len: 60
+    names: []
+    heldout_env_names: []
+    camera_names: ['front_rgb', 'wrist_rgb']

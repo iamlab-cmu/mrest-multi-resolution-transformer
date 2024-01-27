@@ -1,0 +1,73 @@
+data:
+  save: True
+  data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/
+  num_demos_per_train_env: 100
+  num_demos_per_eval_env: 1
+  prefix: 'franka_mt_xyz_2'
+  vary: target
+
+skills:
+  use: 'Pick'
+  all_skills:
+    - 'Pick'
+    - 'Push'
+    - 'Pick And Place'
+    - 'Pick And Place Sideways'
+
+train:
+  target_objects:
+    - 'block'
+    - 'coke'
+    - 'milk'
+    - 'bread'
+    - 'bottle'
+  all_block_colors:
+    - red
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  max_num_blocks: 1
+  language: standard
+  synonyms:
+    milk: 'cream carton'
+    coke: 'coca cola'
+    pepsi: 'pepsi can'
+    bread: 'sourdough'
+    bottle: 'tonic'
+    block: 'cuboid'
+
+eval:
+  target_objects:
+    - 'pepsi'
+  all_block_colors:
+    - red
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  max_num_blocks: 1
+  language: standard
+  synonyms:
+    milk: 'cream carton'
+    coke: 'coca cola'
+    pepsi: 'pepsi can'
+    bread: 'sourdough'
+    bottle: 'tonic'
+    block: 'cuboid'

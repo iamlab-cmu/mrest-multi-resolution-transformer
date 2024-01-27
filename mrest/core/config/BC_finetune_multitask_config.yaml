@@ -1,0 +1,558 @@
+tag: ${now:%Y-%m-%d-%H-%M-%S}
+# Set finetune (below) to False if only want evaluation
+mode: 'test_finetune'
+
+run_id: 2j3bicfs
+# checkpoint_name: encoder_proprio_policy_epoch24_anySuccess79.200
+checkpoint_name: ckpt_0060
+checkpoint:
+    run_path: iam-lab/visual-repr-manip/${run_id}
+    file: 'checkpoints/${checkpoint_name}.pth'
+# If False only runs eval (on both test train (i.e. one demo from test set)
+# and test heldout (remaining N-1 test envs) envs).
+finetune: False
+seed: 123
+
+# This flag is used to initalize the model as usual
+# but not loading the trained checkpoint.
+load_checkpoint_state_dict: True
+add_adapters_for_finetuning: False
+
+# Change for different evaluations
+evaluation_type: blocks_only_color_gen
+
+## Eval for robustness
+eval_robustness:
+    data_env_type: 'eval'
+    filter_data_env_cfg:
+        skills: ['pick']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        eval:
+            eval_all: True
+
+## Color generalization - Blocks only
+blocks_only_color_gen:
+    data_env_type: 'eval' # folder prefix from which to get the data
+    filter_data_env_cfg:
+        skills: ['stack']
+        target_objs: ['block_yellow', 'block_black']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        # train:
+        #     skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+        #     target_objs: ['block_red', 'block_blue']
+        #     max_envs_per_skill_target_obj_pair: 1
+        # eval:
+        #     skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+        #     target_objs: ['block_yellow', 'block_black']
+        #     max_envs_per_skill_target_obj_pair: 1
+
+        # eval_ungrounded_novel_color_white:
+        #     eval_all: True
+        # eval_ungrounded_novel_color_skyblue:
+        #     eval_all: True
+        # eval_ungrounded_novel_color_brown:
+        #     eval_all: True
+
+        #     target_objs: ['block_yellow']
+        #     max_envs_per_skill_target_obj_pair: 1
+        # eval_1:
+        #     skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+        #     target_objs: ['block_yellow', 'block_black']
+        #     max_envs_per_skill_target_obj_pair: 1
+        
+        eval_ungrounded_novel_color_brown:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_brown']
+            max_envs_per_skill_target_obj_pair: 2
+        # eval_ungrounded_novel_color_white:
+        #     skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+        #     target_objs: ['block_white']
+        #     max_envs_per_skill_target_obj_pair: 2
+        eval_ungrounded_novel_color_olive:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_olive']
+            max_envs_per_skill_target_obj_pair: 2
+        eval_ungrounded_novel_color_skyblue:
+          skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+          target_objs: ['block_sky_blue']
+          max_envs_per_skill_target_obj_pair: 2
+        eval_ungrounded_novel_color_white2:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_white']
+            max_envs_per_skill_target_obj_pair: 2
+
+
+## Object Synonym generalization obj - blocks only
+blocks_only_syn_obj_gen:
+    data_env_type: 'eval_syn_obj' # eval_syn_skill, eval_syn_obj_skill
+    filter_data_env_cfg:
+        skills: ['stack']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_syn_obj:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Synonym generalization skill - blocks only
+blocks_only_syn_skill_gen:
+    data_env_type: 'eval_syn_skill' # eval_syn_skill, eval_syn_obj_skill
+    filter_data_env_cfg:
+        skills: ['stack']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_syn_skill:
+            eval_all: True
+            skills: ['stack']
+            target_objs: ['block_red', 'block_blue', 'block_green']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Synonym generalization obj and skill - blocks only
+blocks_only_syn_obj_skill_gen:
+    data_env_type: 'eval_syn_obj_skill' # eval_syn_skill, eval_syn_obj_skill
+    filter_data_env_cfg:
+        skills: ['stack']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_syn_obj_skill:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Blocks-Env: Skill composition - Pick place right
+blocks_only_skill_comp_pick_place_right:
+    data_env_type: 'eval'
+    filter_data_env_cfg:
+        skills: ['pick_and_place_right']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward', 'pick_and_place_left','pick_and_place_front','pick_and_place_back']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+        eval:
+            skills: ['pick_and_place_right']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+
+# blocks_only_skill_comp_pick_place_right_no_train_comp:
+#     data_env_type: 'eval_pick_place_right'
+#     filter_data_env_cfg:
+#         skills: ['pick_and_place_right']
+#         target_objs: ['block_red']
+#         max_envs_per_skill_target_obj_pair: 1
+#     eval_env_types: 
+#         train:
+#             skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+#             target_objs: ['block_red', 'block_blue']
+#             max_envs_per_skill_target_obj_pair: 1
+#         eval_pick_place_right:
+#             skills: ['pick_and_place_right']
+#             target_objs: ['block_red', 'block_blue']
+#             max_envs_per_skill_target_obj_pair: 1
+
+# Pick place right - no composite skills in training
+blocks_only_skill_comp_pick_place_right_no_train_comp:
+    data_env_type: 'eval_skill_comp_pick_place'
+    filter_data_env_cfg:
+        skills: ['pick_and_place_right']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skill_comp_pick_place:
+            skills: ['pick_and_place_right']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+
+blocks_only_skill_comp_pick_place_left_no_train_comp:
+    data_env_type: 'eval_skill_comp_pick_place'
+    filter_data_env_cfg:
+        skills: ['pick_and_place_left']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skill_comp_pick_place:
+            skills: ['pick_and_place_left']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+
+blocks_only_skill_comp_pick_place_front_no_train_comp:
+    data_env_type: 'eval_skill_comp_pick_place'
+    filter_data_env_cfg:
+        skills: ['pick_and_place_front']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skill_comp_pick_place:
+            skills: ['pick_and_place_front']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+
+blocks_only_skill_comp_pick_place_back_no_train_comp:
+    data_env_type: 'eval_skill_comp_pick_place'
+    filter_data_env_cfg:
+        skills: ['pick_and_place_back']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skill_comp_pick_place:
+            skills: ['pick_and_place_back']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+            
+## Household Eval: Color generalization - Medium objects multiobject multiskill (no sticks)
+household_color_gen_peg:
+    data_env_type: 'eval_medium_obj_color_gen'
+    filter_data_env_cfg:
+        skills: ['peg_insert']
+        target_objs: ['peg_pegcolor_black_wrenchcolor_yellow']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['peg_insert', 'nut_pick']
+            target_objs: ['peg_pegcolor_red_wrenchcolor_green', 'RoundNut_pegcolor_red_wrenchcolor_green']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_medium_obj_color_gen:
+            skills: ['peg_insert', 'nut_pick']
+            target_objs: ['peg_pegcolor_black_wrenchcolor_yellow', 'peg_pegcolor_red_wrenchcolor_yellow', 'peg_pegcolor_black_wrenchcolor_green', 'RoundNut_pegcolor_black_wrenchcolor_yellow']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Household: Synonym generalization obj - big objects
+household_obj_syn_gen:
+    data_env_type: 'eval_syn_obj'
+    filter_data_env_cfg:
+        skills: ['drawer_open_goal']
+        target_objs: ['drawer']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['drawer_open_goal']
+            target_objs: ['drawer']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_syn_obj:
+            eval_all: True
+            skills: ['drawer_open_goal', 'door_close', 'door_lock_goal']
+            target_objs: ['drawer', 'drawer_small', 'door', 'door_small']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Household: Synonym generalization obj - Pepsi and coke
+household_obj_syn_gen_pepsi_stick:
+    data_env_type: 'eval_syn_obj_gen'
+    filter_data_env_cfg:
+        skills: ['pick','pick_and_place']
+        target_objs: ['pepsi', 'stick_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','pick_and_place']
+            target_objs: ['pepsi', 'stick_red']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_syn_obj_gen:
+            skills: ['pick','pick_and_place']
+            target_objs: ['pepsi', 'coke', 'stick_red', 'stick_blue']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Household: Synonym generalization skill - MultiObj env
+household_syn_skill_gen:
+    data_env_type: 'eval_syn_skill'
+    filter_data_env_cfg:
+        skills: ['drawer_open_goal', 'door_close', 'door_lock_goal']
+        target_objs: ['drawer', 'door']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            eval_all: False
+            skills: ['drawer_open_goal', 'door_close', 'door_lock_goal']
+            target_objs: ['drawer', 'door']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_syn_skill:
+            eval_all: True
+            skills: ['drawer_open_goal', 'drawer_close_goal', 'door_close', 'door_lock_goal']
+            target_objs: ['drawer', 'drawer_small', 'door', 'door_small']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+# Skill chaining - Multiobj
+household_skill_chain_put_in_drawer:
+    data_env_type: 'eval_skill_chain' # eval_syn_skill, eval_syn_obj_skill
+    filter_data_env_cfg:
+        skills: ['put_in_drawer']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick_and_place', 'drawer_open_goal', 'drawer_close_goal']
+            target_objs: ['block_blue', 'drawer']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skill_chain:
+            skills: ['put_in_drawer']
+            # target_objs: ['block_blue', 'block_green']
+            target_objs: ['block_red','block_blue','block_green']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Household: Skill composition - MultiObj: Put in open drawer
+household_skill_comp_put_in_open_drawer:
+    data_env_type: 'eval_skillcomp_put_in_open_drawer'
+    filter_data_env_cfg:
+        skills: ['put_in_open_drawer']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','push_left','push_right','push_backward','pick_and_place','drawer_open_goal','drawer_close_goal','door_lock_goal','door_open','door_close','faucet_rotate_goal','nut_pick','peg_insert','window_open','window_close']
+            target_objs: ['block_red', 'stick_red','drawer','door','window','RoundNut_pegcolor_red_wrenchcolor_green', 'peg_pegcolor_red_wrenchcolor_green','faucetBase_handlecolor_red_headcolor_grey']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skillcomp_put_in_open_drawer:
+            skills: ['put_in_open_drawer']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+
+## Skill composition - MultiObj: Push in open drawer
+household_skill_comp_push_in_open_drawer:
+    data_env_type: 'eval_skillcomp_push_in_open_drawer'
+    filter_data_env_cfg:
+        skills: ['push_in_open_drawer']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','push_left','push_right','push_backward','pick_and_place','drawer_open_goal','drawer_close_goal','door_lock_goal','door_open','door_close','faucet_rotate_goal','nut_pick','peg_insert','window_open','window_close']
+            target_objs: ['block_red', 'stick_red','drawer','door','window','RoundNut_pegcolor_red_wrenchcolor_green', 'peg_pegcolor_red_wrenchcolor_green','faucetBase_handlecolor_red_headcolor_grey']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skillcomp_push_in_open_drawer:
+            skills: ['push_in_open_drawer']
+            target_objs: ['block_red', 'block_blue']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Skill composition - MultiObj: Use stick to close door
+household_skill_comp_stick_door_close:
+    data_env_type: 'eval_skillcomp_stick_door_close'
+    filter_data_env_cfg:
+        skills: ['stick_door_close']
+        target_objs: ['door']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','push_left','push_right','push_backward','pick_and_place','drawer_open_goal','drawer_close_goal','door_lock_goal','door_open','door_close','faucet_rotate_goal','nut_pick','peg_insert','window_open','window_close']
+            target_objs: ['block_red', 'stick_red','drawer','door','window','RoundNut_pegcolor_red_wrenchcolor_green', 'peg_pegcolor_red_wrenchcolor_green','faucetBase_handlecolor_red_headcolor_grey']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skillcomp_stick_door_close:
+            skills: ['stick_door_close']
+            target_objs: ['door', 'door_small']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+## Skill composition - MultiObj: Put nut in door
+household_skill_comp_put_nut_in_door:
+    data_env_type: 'eval_skillcomp_put_nut_in_door'
+    filter_data_env_cfg:
+        skills: ['put_nut_in_door']
+        target_objs: ['RoundNut_pegcolor_red_wrenchcolor_green']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['nut_pick', 'door_close']
+            target_objs: ['door', 'RoundNut_pegcolor_red_wrenchcolor_green']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skillcomp_put_nut_in_door:
+            skills: ['put_nut_in_door']
+            target_objs: ['RoundNut_pegcolor_red_wrenchcolor_green']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+blockonly_skill_gen_buttonpush:
+  data_env_type: 'train_buttonpush3' # folder prefix from which to get the data
+  filter_data_env_cfg:
+      target_objs: ['block_red', 'block_blue', 'block_green', 'block_orange', 'block_pink', 'block_purple', 'block_black', 'block_yellow']
+      skills: ['buttonpush']
+      max_envs_per_skill_target_obj_pair: 1
+  eval_env_types: 
+      train:
+          skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+          target_objs: ['block_red', 'block_blue']
+          max_envs_per_skill_target_obj_pair: 1
+      train_buttonpush3:
+          # target_objs: ['blockA']
+          target_objs: ['block_red', 'block_blue', 'block_green', 'block_orange', 'block_pink', 'block_purple', 'block_black', 'block_yellow']
+          skills: ['buttonpush']
+          # colors: ['red', 'blue', 'green', 'orange', 'pink', 'purple', 'black', 'yellow']
+          max_envs_per_skill_target_obj_pair: 1
+      eval_buttonpush3:
+          # target_objs: ['blockA']
+          target_objs: ['block_red', 'block_blue', 'block_green', 'block_orange', 'block_pink', 'block_purple', 'block_black', 'block_yellow']
+          skills: ['buttonpush']
+          max_envs_per_skill_target_obj_pair: 1
+      eval_buttonpush4_button_color:
+          # target_objs: ['blockA']
+          target_objs: ['block_red', 'block_blue', 'block_green', 'block_orange', 'block_pink', 'block_purple', 'block_black', 'block_yellow']
+          skills: ['buttonpush']
+          max_envs_per_skill_target_obj_pair: 2
+
+# Mohit (Skill generalization) -- Binpick
+blockonly_skill_gen_binpick:
+  data_env_type: 'train_binpick2' # folder prefix from which to get the data
+  filter_data_env_cfg:
+    target_objs: ['block_red']
+    skills: ['binpick']
+    max_envs_per_skill_target_obj_pair: 1
+  eval_env_types: 
+    train_binpick2:
+      target_objs: ['block_red']
+      skills: ['binpick']
+      max_envs_per_skill_target_obj_pair: 1
+    eval_binpick_color:
+      target_objs: ['block_yellow', 'block_black', 'block_pink']
+      skills: ['binpick']
+      max_envs_per_skill_target_obj_pair: 1
+    eval_binpick_binpos:
+      target_objs: ['block_red']
+      skills: ['binpick']
+      max_envs_per_skill_target_obj_pair: 1
+
+## Skill composition - MultiObj: Put nut in door multicolor
+household_skill_comp_put_nut_in_door_mtcolor:
+    data_env_type: 'eval_skillcomp_put_nut_in_door_mtcolor'
+    filter_data_env_cfg:
+        skills: ['put_nut_in_door']
+        target_objs: ['RoundNut_pegcolor_red_wrenchcolor_green']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','push_left','push_right','push_backward','pick_and_place','drawer_open_goal','drawer_close_goal','door_lock_goal','door_open','door_close','faucet_rotate_goal','nut_pick','peg_insert','window_open','window_close']
+            target_objs: ['block_red', 'stick_red','drawer','door','window','RoundNut_pegcolor_red_wrenchcolor_green', 'peg_pegcolor_red_wrenchcolor_green','faucetBase_handlecolor_red_headcolor_grey']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_skillcomp_put_nut_in_door_mtcolor:
+            skills: ['put_nut_in_door']
+            target_objs: ['RoundNut_pegcolor_red_wrenchcolor_green', 'RoundNut_pegcolor_red_wrenchcolor_yellow']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+envs:
+    num_envs: ???
+    names: ???
+    type: ???
+    heldout_env_names: ???
+    eval_env_names: ???
+
+# Provide args that should override train_cfg args under override_train_cfg
+override_train_cfg:
+    epochs: 1
+
+    val_freq_epochs: 1
+    num_demos_train_per_task: 1
+    num_demos_val_per_task: 1
+
+    agent_eval:
+        use: True
+        eval_freq_epochs: 1
+
+    eval_num_traj:
+        train: 20
+        eval: 20
+        eval_syn_obj: 20
+        eval_syn_skill: 20
+        eval_syn_obj_skill: 20
+        eval_pick_place_right: 20
+        eval_skill_chain: 20
+        eval_skillcomp_put_in_open_drawer: 20
+        eval_skillcomp_stick_door_close: 20
+        eval_syn_obj_gen: 20
+        eval_medium_obj_color_gen: 20
+        eval_syn_skill_ft: 20
+        eval_syn_skill_metagen: 20
+        eval_skillcomp_put_nut_in_door: 20
+        eval_skillcomp_push_in_open_drawer: 20
+        eval_skillcomp_put_nut_in_door_mtcolor: 20
+        eval_ungrounded_novel_color_white: 20
+        eval_ungrounded_novel_color_skyblue: 20
+        eval_ungrounded_novel_color_olive: 20
+        eval_ungrounded_novel_color_brown: 20
+
+
+    # change_data_dir: False
+    # data_dir: '/home/saumyas/experiment_results/object_centric/r3m/data/sawyer_mt_multiskill_multicolor_block_syn_both_trainobjs_multiskill_target'
+    bc_kwargs:
+        lr: 1e-5
+        optimizer:
+            param_groups:
+                use: False 
+                proprio_params:
+                    lr: 1e-5 
+                policy_params: 
+                    lr: 1e-5
+                separate_lang_encoder_params:
+                    lr: 1e-5
+                non_image_vision_encoder_params:
+                    lr: 1e-5
+                text_encoder_params:
+                    # Already frozen
+                    lr: 0.0
+                adapter_vision_params:
+                    lr: 1e-5
+                vision_backbone_params:
+                    lr: 1e-5
+                transformer_adapter_params:
+                    lr: 1e-5
+                transformer_non_adapter_params:
+                    lr: 1e-5
+                non_grouped_params:
+                    lr: 1e-5
+
+# BC agent setup
+bc_kwargs:
+
+wandb:
+    project: visual-repr-manip-eval
+    name: Eval_ft_${finetune}_Ad_${add_adapters_for_finetuning}_run_${run_id}_${checkpoint_name}_${evaluation_type}
+    # name: Eval_ft_${finetune}_Ad_${add_adapters_for_finetuning}_run_${run_id}_${checkpoint_name}_${evaluation_type}_filter_composite
+    group: eval_ft/${evaluation_type}/multiview/robustness
+    # group: eval_ft/${evaluation_type}/mdetr_resnet101/multiobj_sticks_2x/full_ft/Mar_6_metagen_forgetting
+    override_train_group_name: False
+    # group_name:
+
+hydra:
+    job:
+        name: Eval_ft_${finetune}_Ad_${add_adapters_for_finetuning}_run_${run_id}_${checkpoint_name}_${evaluation_type}

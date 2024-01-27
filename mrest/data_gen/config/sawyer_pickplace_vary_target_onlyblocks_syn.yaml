@@ -1,0 +1,260 @@
+data:
+  save: True
+  data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/
+  prefix: 'sawyer_mt_onlyblocks_syn'
+  vary: target
+  num_demos_per_env_type:
+    train: 5
+    eval: 5
+    eval_1: 5
+
+seed: 8
+data_collect_types:
+  - train
+  - eval
+  # - eval_1
+  
+object_descriptions_standard:
+  milk:
+    - 'milk'
+  coke:
+    - 'coke'
+  pepsi:
+    - 'pepsi'
+  bread:
+    - 'bread'
+  bottle:
+    - 'bottle'
+  blockA:
+    - 'red block'
+  blockB:
+    - 'green block'
+  blockC:
+    - 'blue block'
+  blockD:
+    - 'yellow block'
+
+object_descriptions_synonyms:
+  milk:
+    - 'cream carton'
+    - 'milk-cream carton'
+  coke:
+    - 'coca cola'
+  pepsi:
+    - 'pepsi can'
+  bread:
+    - 'sourdough'
+  bottle:
+    - 'tonic'
+  blockA:
+    - 'red cuboid'
+  blockB:
+    - 'green cuboid'
+  blockC:
+    - 'blue cuboid'
+  blockD:
+    - 'yellow cuboid'
+
+
+skills:
+  use: 'all'
+  train:
+  # Set use: all to loop through all skills and create one dataset for them
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'stack'
+      - 'pick_and_place'
+      - 'push_left'
+      - 'push_right'
+      - 'push_forward'
+      - 'push_backward'
+  eval:
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'stack'
+      - 'pick_and_place'
+      - 'push_left'
+      - 'push_right'
+      - 'push_forward'
+      - 'push_backward'
+
+skill_descriptions_standard:
+  pick:
+    - "Pick <target>"
+  stack:
+    - "Stack <target> on <object>"
+  pick_and_place:
+    - "Pick and place <target>"
+  push_left:
+    - "Push <target> to the left"
+  push_right:
+    - "Push <target> to the right"
+  push_forward:
+    - "Push <target> to the front"
+  push_backward:
+    - "Push <target> to the back"
+
+skill_descriptions_synonyms:
+  pick:
+    - "Pick up <target>"
+    - "Lift <target>"
+    - "Lift up <target>"
+  stack:
+    - "Pick <target> and put on top of <object>"
+    - "Lift up <target> and put on top of <object>"
+    - "Pick up <target> and place on top of <object>"
+    - "Pick up <target> reach above <object> and release"
+  pick_and_place:
+    - "Pick up <target> and place"
+    - "Lift <target> and place"
+    - "Pick <target> and release"
+    - "Pick <target> and put"
+  push_left:
+    - "Reach to right of <target> and push it to the left"
+    - "Reach to right of <target> and slide it to the left"
+  push_right:
+    - "Reach to left of <target> and push it to the right"
+    - "Reach to left of <target> and slide it to the right"
+  push_forward:
+    - "Reach behind <target> and push it to the front"
+    - "Reach behind <target> and slide it to the front"
+    - "Reach behind <target> and push it forward"
+  push_backward:
+    - "Reach in the front of <target> and push it to the back"
+    - "Reach in the front of <target> and slide it to the back"
+    - "Reach in the front of <target> and push it backwards"
+
+train:
+  only_use_block_objects: True
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_objects:
+      - 'blockA'
+      - 'blockB'
+      - 'blockC'
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_objects:
+      - 'blockA'
+      - 'blockB'
+      - 'blockC'
+      # - 'blockD'
+    stack_on_objects:
+      - 'blockA'
+      - 'blockB'
+      # - 'blockC'
+      - 'blockD'
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_objects:
+      - 'blockA'
+      - 'blockB'
+      - 'blockC'
+      # - 'blockD'
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_objects:
+      - 'blockA'
+      - 'blockB'
+      - 'blockC'
+      # - 'blockD'
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_objects:
+      - 'blockA'
+      - 'blockB'
+      - 'blockC'
+      # - 'blockD'
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_objects:
+      - 'blockA'
+      - 'blockB'
+      - 'blockC'
+      # - 'blockD'
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_objects:
+      - 'blockA'
+      - 'blockB'
+      - 'blockC'
+      # - 'blockD'
+  all_blockA_colors:
+    - red
+  all_blockB_colors:
+    - green
+  all_blockC_colors:
+    - blue
+  all_blockD_colors:
+    - yellow
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_standard}
+
+eval:
+  only_use_block_objects: True
+  pick:
+    skill_desc: ${skill_descriptions_synonyms.pick}
+    target_objects:
+      - 'blockD'
+  stack:
+    skill_desc: ${skill_descriptions_synonyms.stack}
+    target_objects:
+      - 'blockD'
+    stack_on_objects:
+      - 'blockA'
+      - 'blockB'
+      - 'blockC'
+  pick_and_place:
+    skill_desc: ${skill_descriptions_synonyms.pick_and_place}
+    target_objects:
+      - 'blockD'
+  push_left:
+    skill_desc: ${skill_descriptions_synonyms.push_left}
+    target_objects:
+      - 'blockD'
+  push_right:
+    skill_desc: ${skill_descriptions_synonyms.push_right}
+    target_objects:
+      - 'blockD'
+  push_forward:
+    skill_desc: ${skill_descriptions_synonyms.push_forward}
+    target_objects:
+      - 'blockD'
+  push_backward:
+    skill_desc: ${skill_descriptions_synonyms.push_backward}
+    target_objects:
+      - 'blockD'
+  all_blockA_colors:
+    - red
+  all_blockB_colors:
+    - green
+  all_blockC_colors:
+    - blue
+  all_blockD_colors:
+    - yellow
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_synonyms}

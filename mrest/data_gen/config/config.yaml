@@ -1,0 +1,57 @@
+env_name: SawyerBinPickingMultiTaskEnvV2
+# Where to save generated data?
+data:
+  generate: True
+  data_dir: ???
+
+all_sizes: 
+  - small_cube
+  - medium_cube
+  - large_cube
+  - small_medium_cuboid
+  # - small_large_cuboid
+  # - large_small_cuboid
+  - large_medium_cuboid
+
+# NOTE: These colors are defined in bin_dependencies.xml in the metaworld folder.
+all_colors: 
+  - green
+  - orange
+  - yellow
+  - brass
+  - pink
+  - grey
+  - purple
+  - black
+  - dark_chocolate
+  - golden_yellow
+
+# Check sawyer_bin_picking_v2_multitask.py to find all size names
+train_sizes:
+  - medium_cube
+  - large_cube
+
+eval_sizes:
+  - medium_cube
+  - large_cube
+
+train_colors:
+  - green
+  - orange
+  - yellow
+  - pink
+  - purple
+  - dark_chocolate
+
+eval_colors:
+  - black
+  - grey
+  - golden_yellow
+
+train_start_bin_locations: 
+  - 0
+  - 1
+  - 2
+
+eval_start_bin_locations:
+  - 3

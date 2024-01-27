@@ -1,0 +1,177 @@
+tag: ${now:%Y-%m-%d-%H-%M-%S}
+# Set finetune (below) to False if only want evaluation
+mode: 'test_finetune'
+
+run_id: 237uusak
+# checkpoint_name: encoder_proprio_policy_epoch24_anySuccess79.200
+checkpoint_name: ckpt_0060
+checkpoint:
+    run_path: iam-lab/visual-repr-manip/${run_id}
+    file: 'checkpoints/${checkpoint_name}.pth'
+# If False only runs eval (on both test train (i.e. one demo from test set)
+# and test heldout (remaining N-1 test envs) envs).
+finetune: False
+seed: 123
+
+# This flag is used to initalize the model as usual
+# but not loading the trained checkpoint.
+load_checkpoint_state_dict: True
+add_adapters_for_finetuning: False
+
+# Change for different evaluations
+evaluation_type: insert_onto_square_peg_ms
+
+insert_onto_square_peg_ms:
+    # In MetaWorld envs data_env_type is the folder prefix from which to get the data
+    # But not in RLBench (atleast for now)
+    data_env_type: 'na' 
+    eval_env_types:
+        eval_insert:
+            task: insert_onto_square_peg_ms
+            variations: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+## Color generalization - Blocks only
+blocks_only_color_gen:
+    data_env_type: 'eval' # folder prefix from which to get the data
+    filter_data_env_cfg:
+        skills: ['stack']
+        target_objs: ['block_yellow']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        # train:
+        #     skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+        #     target_objs: ['block_red', 'block_blue']
+        #     max_envs_per_skill_target_obj_pair: 1
+        # eval:
+        #     skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+        #     target_objs: ['block_yellow']
+        #     max_envs_per_skill_target_obj_pair: 1
+        eval_1:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_yellow', 'block_black']
+            max_envs_per_skill_target_obj_pair: 1
+        
+        eval_ungrounded_novel_color_brown:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_brown']
+            max_envs_per_skill_target_obj_pair: 2
+        # eval_ungrounded_novel_color_white:
+        #     skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+        #     target_objs: ['block_white']
+        #     max_envs_per_skill_target_obj_pair: 2
+        eval_ungrounded_novel_color_olive:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_olive']
+            max_envs_per_skill_target_obj_pair: 2
+        eval_ungrounded_novel_color_skyblue:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_sky_blue']
+            max_envs_per_skill_target_obj_pair: 2
+        eval_ungrounded_novel_color_white2:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_white']
+            max_envs_per_skill_target_obj_pair: 2
+
+
+## Synonym generalization skill - blocks only
+blocks_only_syn_skill_gen:
+    data_env_type: 'eval_syn_skill' # eval_syn_skill, eval_syn_obj_skill
+    filter_data_env_cfg:
+        skills: ['stack']
+        target_objs: ['block_red']
+        max_envs_per_skill_target_obj_pair: 1
+    eval_env_types: 
+        train:
+            skills: ['pick','stack','pick_and_place','push_left','push_right','push_forward','push_backward']
+            target_objs: ['block_red']
+            max_envs_per_skill_target_obj_pair: 1
+        eval_syn_skill:
+            eval_all: True
+            skills: ['stack']
+            target_objs: ['block_red', 'block_blue', 'block_green']
+            max_envs_per_skill_target_obj_pair: 1
+
+
+envs:
+    num_envs: ???
+    names: ???
+    type: ???
+    heldout_env_names: ???
+    eval_env_names: ???
+
+# Provide args that should override train_cfg args under override_train_cfg
+override_train_cfg:
+    epochs: 1
+
+    val_freq_epochs: 1
+    num_demos_train_per_task: 1
+    num_demos_val_per_task: 1
+
+    agent_eval:
+        use: True
+        eval_freq_epochs: 1
+
+    eval_num_traj:
+        train: 20
+        eval: 20
+        eval_syn_obj: 20
+        eval_syn_skill: 20
+        eval_syn_obj_skill: 20
+        eval_pick_place_right: 20
+        eval_skill_chain: 20
+        eval_skillcomp_put_in_open_drawer: 20
+        eval_skillcomp_stick_door_close: 20
+        eval_syn_obj_gen: 20
+        eval_medium_obj_color_gen: 20
+        eval_syn_skill_ft: 20
+        eval_syn_skill_metagen: 20
+        eval_skillcomp_put_nut_in_door: 20
+        eval_skillcomp_push_in_open_drawer: 20
+        eval_skillcomp_put_nut_in_door_mtcolor: 20
+
+
+    # change_data_dir: False
+    # data_dir: '/home/saumyas/experiment_results/object_centric/r3m/data/sawyer_mt_multiskill_multicolor_block_syn_both_trainobjs_multiskill_target'
+    bc_kwargs:
+        lr: 1e-5
+        optimizer:
+            param_groups:
+                use: True 
+                proprio_params:
+                    lr: 1e-5 
+                policy_params: 
+                    lr: 1e-5
+                separate_lang_encoder_params:
+                    lr: 1e-5
+                non_image_vision_encoder_params:
+                    lr: 1e-5
+                text_encoder_params:
+                    # Already frozen
+                    lr: 0.0
+                adapter_vision_params:
+                    lr: 1e-5
+                vision_backbone_params:
+                    lr: 1e-5
+                transformer_adapter_params:
+                    lr: 1e-5
+                transformer_non_adapter_params:
+                    lr: 1e-5
+                non_grouped_params:
+                    lr: 1e-5
+
+# BC agent setup
+bc_kwargs:
+
+wandb:
+    project: visual-repr-manip-eval
+    name: Eval_ft_${finetune}_Ad_${add_adapters_for_finetuning}_run_${run_id}_${checkpoint_name}_${evaluation_type}
+    # name: Eval_ft_${finetune}_Ad_${add_adapters_for_finetuning}_run_${run_id}_${checkpoint_name}_${evaluation_type}_filter_composite
+    # name: Eval_ft_${finetune}_Ad_${add_adapters_for_finetuning}_run_${run_id}_${checkpoint_name}_${data_env_type}_pushdrawer_film
+    group: eval_ft/${evaluation_type}/mdetr_MV/blocksonly_2x_noise/color_gen/cross_FTH/Mar_30
+    # group: eval_ft/${evaluation_type}/mdetr_resnet101/multiobj_sticks_2x/full_ft/Mar_6_metagen_forgetting
+    override_train_group_name: True
+    group_name:
+
+hydra:
+    job:
+        name: Eval_ft_${finetune}_Ad_${add_adapters_for_finetuning}_run_${run_id}_${checkpoint_name}_${evaluation_type}_mar17

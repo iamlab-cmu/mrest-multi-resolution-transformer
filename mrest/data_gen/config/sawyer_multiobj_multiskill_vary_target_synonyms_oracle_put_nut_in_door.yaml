@@ -1,0 +1,388 @@
+data:
+  save: True
+  data_dir: /home/saumyas/experiment_results/object_centric/r3m/data
+  prefix: 'sawyer_multiobj_multiskill_oracle_put_nut_in_door_mt'
+  vary: target
+  num_demos_per_env_type:
+    train: 100
+
+seed: 8
+data_collect_types:
+  - train
+
+object_descriptions_standard:
+  milk:
+    - 'milk'
+  coke:
+    - 'coke'
+    - 'red coke'
+  pepsi:
+    - 'pepsi'
+    - 'blue pepsi'
+  bread:
+    - 'bread'
+  bottle:
+    - 'bottle'
+  block_red:
+    - 'red block'
+  block_blue:
+    - 'blue block'
+  block_green:
+    - 'green block'
+  block_orange:
+    - 'orange block'
+  block_pink:
+    - 'pink block'
+  block_purple:
+    - 'purple block'
+  block_yellow:
+    - 'yellow block'
+  block_black:
+    - 'black block'
+  door:
+    - 'door'
+  door_small:
+    - 'door'
+  drawer:
+    - 'drawer'
+  drawer_small:
+    - 'drawer'
+  window:
+    - 'window'
+  RoundNut:
+    - 'round nut'
+  peg:
+    - 'peg'
+  faucetBase:
+    - 'faucet'
+  stick_red:
+    - 'red stick'
+    - 'red long stick'
+  stick_blue:
+    - 'blue stick'
+    - 'blue long stick'
+  stick_green:
+    - 'green stick'
+    - 'green long stick'
+  stick_orange:
+    - 'orange stick'
+    - 'orange long stick'
+  stick_pink:
+    - 'pink stick'
+    - 'pink long stick'
+  stick_purple:
+    - 'purple stick'
+    - 'purple long stick'
+  stick_yellow:
+    - 'yellow stick'
+    - 'yellow long stick'
+  stick_black:
+    - 'black stick'
+    - 'black long stick'
+
+object_descriptions_synonyms:
+  milk:
+    - 'cream carton'
+    - 'milk-cream carton'
+  coke:
+    - 'red can'
+    - 'red cylinder'
+    - 'coca cola'
+    - 'red coca cola can'
+  pepsi:
+    - 'blue can'
+    - 'blue cylinder'
+    - 'pepsi can'
+    - 'blue pepsi can'
+  bread:
+    - 'sourdough'
+  bottle:
+    - 'tonic'
+  blockA:
+    - 'red cuboid'
+    - 'red object'
+    - 'red box'
+  blockB:
+    - 'green cuboid'
+    - 'green object'
+    - 'green box'
+  blockC:
+    - 'blue cuboid'
+    - 'blue object'
+    - 'blue box'
+  blockD:
+    - 'yellow cuboid'
+    - 'yellow object'
+    - 'yellow box'
+  block_red:
+    - 'red cuboid'
+    - 'red object'
+    - 'red box'
+  block_blue:
+    - 'blue cuboid'
+    - 'blue object'
+    - 'blue box'
+  block_green:
+    - 'green cuboid'
+    - 'green object'
+    - 'green box'
+  block_orange:
+    - 'orange cuboid'
+    - 'orange object'
+    - 'orange box'
+  block_pink:
+    - 'pink cuboid'
+    - 'pink object'
+    - 'pink box'
+  block_purple:
+    - 'purple cuboid'
+    - 'purple object'
+    - 'purple box'
+  block_yellow:
+    - 'yellow cuboid'
+    - 'yellow object'
+    - 'yellow box'
+  block_black:
+    - 'black cuboid'
+    - 'black object'
+    - 'black box'
+  door:
+    - 'safe'
+    - 'locker'
+    - 'gate'
+  door_small:
+    - 'safe'
+    - 'locker'
+    - 'gate'
+  drawer:
+    - 'chest'
+    - 'cabinet'
+    - 'vault'
+  drawer_small:
+    - 'chest'
+    - 'cabinet'
+    - 'vault'
+  window:
+    - 'sliding window'
+  RoundNut:
+    - 'eyebolt'
+  peg:
+    - 'cylindrical rod'
+    - 'rod'
+  faucetBase:
+    - 'crank'
+    - 'winch'
+  stick_red:
+    - 'red brick'
+  stick_blue:
+    - 'blue brick'
+  stick_green:
+    - 'green brick'
+  stick_orange:
+    - 'orange brick'
+  stick_pink:
+    - 'pink brick'
+  stick_purple:
+    - 'purple brick'
+  stick_yellow:
+    - 'yellow brick'
+  stick_black:
+    - 'black brick'
+
+objects:
+  train: ['door', 'door_small', 'drawer', 'drawer_small', 'window', 'RoundNut', 'peg', 'faucetBase']
+  eval: []
+  all: ['door', 'door_small', 'drawer', 'drawer_small', 'window', 'RoundNut', 'peg', 'faucetBase']
+
+multiobj: True
+multicolor_blocks: True
+blocks:
+  train: ['block_red', 'block_blue', 'block_green', 'block_orange', 'block_pink', 'block_purple']
+  train_subset_A: ['block_red', 'block_blue', 'block_green']
+  train_subset_B: ['block_orange', 'block_pink', 'block_purple']
+  train_subset_C: ['block_orange', 'block_blue', 'block_green']
+  train_subset_D: ['block_red', 'block_blue']
+  train_subset_E: ['block_green', 'block_orange']
+  eval: ['block_yellow', 'block_black']
+  eval_syn: ['block_red', 'block_blue']
+  # Set in code as train_colors + eval_colors
+  all: ???
+
+# faucet: 'faucetBase'
+# nut: 'RountNut'
+# peg: 'peg'
+# window: 'window'
+# door: 'door'
+# drawer: drawer
+
+skills:
+  use: 'all'
+  train:
+    use: 'all'
+    all_skills:
+      - 'put_nut_in_door'
+
+skill_descriptions_standard:
+  pick:
+    - "Pick"
+  stack:
+    - "Stack <target> on <object>"
+  pick_and_place:
+    - "Pick and place <target>"
+  push_left:
+    - "Push to the left <target>"
+  push_right:
+    - "Push to the right <target>"
+  push_forward:
+    - "Push forward <target>"
+  push_backward:
+    - "Push backward <target>"
+  drawer_open_goal:
+    - "Pull open <target> till goal"
+  drawer_close_goal:
+    - "Close <target>"
+  door_lock_goal:
+    - "Lock <target>"
+    # - "Push down door handle"
+  door_open:
+    - "Open <target>"
+  door_close:
+    - "Close <target>"
+  faucet_rotate_goal:
+    - "Turn <target> to goal"
+  nut_pick:
+    - "Pick round <target>"
+  peg_insert:
+    - "Pick round nut and insert into <target>"
+  window_open:
+    - "Open <target> till goal"
+  window_close:
+    - "Close <target>"
+  put_in_drawer:
+    - "Open drawer and pick and place <target> in drawer"
+  put_in_open_drawer:
+    - "Pick and place <target> in open <object>"
+  stick_door_close:
+    - "Use <object> to close <target>"
+  push_in_open_drawer:
+    - "Push <target> in open <object>"
+  put_nut_in_door:
+    - "Put <target> in open <object>"
+
+skill_descriptions_synonyms:
+  pick:
+    - "Pick up <target>"
+    - "Lift <target>"
+    - "Lift up <target>"
+  stack:
+    - "Pick <target> and put on top of <object>"
+    - "Lift up <target> and put on top of <object>"
+    - "Pick up <target> and place on top of <object>"
+    - "Pick up <target> reach above <object> and release"
+  pick_and_place:
+    - "Pick up <target> and place"
+    - "Lift <target> and place"
+    - "Pick <target> and release"
+    - "Pick <target> and put"
+  push_left:
+    - "Reach to right of <target> and push it to the left"
+    - "Reach to right of <target> and slide it to the left"
+  push_right:
+    - "Reach to left of <target> and push it to the right"
+    - "Reach to left of <target> and slide it to the right"
+  push_forward:
+    - "Reach behind <target> and push it to the front"
+    - "Reach behind <target> and slide it to the front"
+    - "Reach behind <target> and push it forward"
+  push_backward:
+    - "Reach in the front of <target> and push it to the back"
+    - "Reach in the front of <target> and slide it to the back"
+    - "Reach in the front of <target> and push it backwards"
+  drawer_open_goal:
+    - "Slide the <target> open till goal"
+  drawer_close_goal:
+    - "Slide the <target> close"
+  door_lock_goal:
+    - "Push down lock"
+    - "Push down latch"
+  door_open:
+    - "Pull the <target>"
+  door_close:
+    - "Push the <target>"
+    - "Shut the <target>"
+  faucet_rotate_goal:
+    - "Rotate the <target> till goal is reached"
+  nut_pick:
+    - "Lift up <target>"
+  peg_insert:
+    - "Lift up round nut and reach above <target> and release"
+  window_open:
+    - "Slide the <target> open"
+    - "Push the <target> backwards"
+    - "Pull the <target> backwards"
+  window_close:
+    - "Slide the <target> close"
+    - "Push the <target> forward"
+    - "Pull the <target> forward"
+  put_in_drawer:
+    - "Open drawer and pick and place <target> in drawer"
+  put_in_open_drawer:
+    - "Pick and place <target> in open <object>"
+  stick_door_close:
+    - "Use <object> to close <target>"
+  push_in_open_drawer:
+    - "Push <target> in open <object>"
+  put_nut_in_door:
+    - "Put <target> in open <object>"
+
+# Objects2 contains small objects as well as sticks
+objects2:
+  train: ['door', 'door_small', 'drawer', 'drawer_small', 'window', 'RoundNut', 'peg', 'faucetBase', 'coke', 'pepsi']
+  eval: []
+  all: ['door', 'door_small', 'drawer', 'drawer_small', 'window', 'RoundNut', 'peg', 'faucetBase', 'coke', 'pepsi']
+  small_objects: ['coke', 'pepsi']
+
+
+multicolor_sticks: True
+sticks:
+  train: ['stick_red', 'stick_blue', 'stick_green', 'stick_orange', 'stick_pink', 'stick_purple']
+  train_subset_A: ['stick_red', 'stick_blue', 'stick_green']
+  train_subset_B: ['stick_orange', 'stick_pink', 'stick_purple']
+  train_subset_C: ['stick_orange', 'stick_blue', 'stick_green']
+  train_subset_D: ['stick_red', 'stick_blue']
+  train_subset_E: ['stick_green', 'stick_orange']
+  eval: ['stick_yellow', 'stick_black']
+  eval_syn: ['stick_red', 'stick_blue']
+  # Set in code as train_colors + eval_colors
+  all: ???
+
+train:
+  only_use_block_objects: False
+  has_small_objects: True
+
+  sample_single_description: True
+  
+  object_description: ${object_descriptions_standard}
+
+  all_objects:
+    objects: ${objects2.all}
+    small_objects: ${objects2.small_objects}
+    blocks: ${blocks.all}
+    sticks: ${sticks.all}
+
+  put_nut_in_door:
+    skill_desc: ${skill_descriptions_standard.put_nut_in_door}
+    target_blocks: []
+    target_objects: ['RoundNut']
+    auxiliary_objects: 
+      - ['door']
+    num_demos_per_env: 1
+    num_stack_on_objects_for_one_target: 1
+    num_distractor_block_variations: 1
+  
+    distractor_configs:
+      1:
+        distractors: ['block', 'block']
+        blocks: ['block_red', 'block_blue']
+        num_demos_per_env: 100
+        num_distractor_variations: 1

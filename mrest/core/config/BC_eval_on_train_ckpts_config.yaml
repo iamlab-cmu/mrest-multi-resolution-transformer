@@ -1,0 +1,65 @@
+tag: ${now:%Y-%m-%d-%H-%M-%S}
+mode: 'eval'
+batch_size: 32
+gpu_id: 0
+sleep_time: 120
+wait_before_terminate_time_in_mins: 240
+lazy_env_creation: True
+env_gif_saver:
+    use: True
+    # if set to 10 we will save videos every 10 envs
+    # save_env_freq: 1
+    save_env_freq: 20
+
+# If 1 it will run (epoch / epoch_freq) % val
+run_epoch:
+    use: True
+    current: 0
+    total: 1
+    # Evaluate checkpoints only beyond this epoch
+    start_eval_from: 0
+
+# GSheets info
+gsheet:
+    name: Experiments-Adapters
+    worksheet: 'eval_pick'
+    worksheet_info: 'eval_pick_info'
+    row: -1
+
+eval_num_traj:
+    train: 3
+    heldout: 0
+
+checkpoint:
+    run_path: 'iam-lab/visual-repr-manip/34g4tg6u'
+
+run_1ckpt: # set run_epoch.use=False when using this
+    use: False
+    file: checkpoints/ckpt_0096.pth
+
+wandb:
+    project: visual-repr-manip-train-eval
+
+envs:
+    num_envs: ???
+    names: ???
+    type: ???
+    heldout_env_names: ???
+    eval_env_names: ???
+    episode_len: 250
+
+# experiment and evaluation
+seed: 123
+
+# BC agent setup (these are finetune args)
+bc_kwargs:
+    epochs: 6
+    eval_freq_epochs: 1
+    val_freq_epochs: 1
+    num_demos_train_per_task: 1
+    num_demos_val_per_task: 1
+    eval_num_traj: 4
+
+hydra:
+    job:
+        name: Eval_train_ckpt

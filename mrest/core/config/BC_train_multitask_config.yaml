@@ -1,0 +1,395 @@
+tag: ${now:%Y-%m-%d-%H-%M-%S}
+defaults:
+    - metaworld_envs: metaworld_envs
+    - rlbench_envs: rlbench_envs
+    - realworld_envs: realworld_envs
+    - pybullet_envs: pybullet_envs
+    - mdetr: config
+
+# TODO: We should have all different envs as separate YAML files
+# then we don't have to explicitly add these values here.
+envs:
+    num_envs: ???
+    names: ???
+    type: ???
+    heldout_env_names: ???
+
+pixel_based: True
+embedding: 'mdetr' #
+# camera: ["left_cap2", "right_cap2"]
+camera: eye_in_hand_90
+device: cuda
+
+# Metaworld / RLBench / RealWorld / PyBullet (Ballbot)
+env_type: 'metaworld'  # metaworld, rlbench, realworld, pybullet
+
+# experiment and evaluation
+seed: 71                     # used as base_seed for rolling out policy for eval in sample_paths
+epochs: 60                    # number of outer epochs
+save_model_freq_epochs: 1
+val_freq_epochs: 4
+log_val: False
+save_best_val_policy: True
+eval_num_traj: 1              # number of rollouts to eval
+num_cpu: 1                    # for rolling out paths when evaluating                 
+num_demos_train_per_task: 5  # is overridden by metaworld env yaml
+num_demos_val_per_task: 5
+proprio: 4
+mode: 'train'
+
+# Data for R3M tasks
+data_dir: ???
+dataL_num_workers: 4
+
+multi_task: True
+
+# Augmentation parameters (global so we can filter efficiently in wandb)
+augment_img: True
+augment_padding: 8
+augment_initial_resize: 226   # 248
+use_crop_aug_during_eval: False
+
+env_gif_saver:
+    use: True
+    # if set to 10 we will save videos every 10 envs
+    # save_env_freq: 1
+    save_env_freq: 10
+
+multi_temporal_sensors:
+    use: True
+    i3_freq: 4
+    ih_freq: 1
+    proprio: 1
+    metaworld:
+        left_cap2: ${multi_temporal_sensors.i3_freq}
+        eye_in_hand_90: ${multi_temporal_sensors.ih_freq}
+        eye_in_hand_45: ${multi_temporal_sensors.ih_freq}
+        # left_cap2: 1
+        # eye_in_hand_90: 1
+        #
+    rlbench:
+        front_rgb: ${multi_temporal_sensors.i3_freq}
+        wrist_rgb: ${multi_temporal_sensors.ih_freq}
+
+    realworld:
+        hand: ${multi_temporal_sensors.ih_freq}
+        static: ${multi_temporal_sensors.i3_freq}
+
+    pybullet:
+        # left_cap2: ${multi_temporal_sensors.i3_freq}
+        # eye_in_hand_90: ${multi_temporal_sensors.ih_freq}
+        left_cap2: 1
+        eye_in_hand_90: 1
+        
+
+# environment related kwargs
+env_kwargs:
+    env_names: ${envs.names}
+    device: ${device}               # device to use for representation network (policy clamped to CPU for now)
+    image_width: 256
+    image_height: 256
+    camera_name: ${camera}
+    embedding_name: ${embedding}
+    pixel_based: ${pixel_based}
+    render_gpu_id: 2
+    load_path: "mdetr_resnet101"
+    proprio: ${proprio}
+    lang_cond: False
+    gc: False
+    augment_img: ${augment_img}
+    all_low_res: False
+    all_high_res: False
+    # Make eval faster for MT-10
+    # Use 100 for MT-25 (much faster eval) (Specified in metaworld_envs, separately for each env)
+    episode_len: ???
+
+    tanh_action:
+        use: False
+        low: [-0.03, -0.03, -0.03, 0.0]
+        high: [0.03, 0.03, 0.03,   1.0]
+
+        realworld:
+            # For insertion
+            # low: [-0.02, -0.02, -0.02, 0.0]
+            # high: [0.02,  0.02,  0.02, 1.0]
+            # For lift
+            low: [-0.03, -0.03, -0.03, 0.0]
+            high: [0.03,  0.03,  0.03, 1.0]
+
+
+agent_eval:
+    use: True
+    eval_freq_epochs: 4
+
+# BC agent setup
+bc_kwargs:
+  loss_type: 'MSE'  # 'MSE' , 'weighted_mse', 'MSE_binary_gripper'
+  use_GMM_actions: False
+
+  loss_config:
+    weighted_mse:
+      weights: [1., 1., 1., 1.]
+    MSE:
+      loss_scale: 1.
+    mse_binary_gripper:
+      pos_scale: 1.0
+      gripper_scale: 5.0
+    weighted_L1:
+      # weights: [10., 10., 1., 1.]
+      weights: [10., 10., 10., 1.]   # For MetaWorld, RLBennch
+      # weights: [10., 10., 10., 10.]    # For PyBullet (ballbot)
+    MLE_multi_action:
+        loss_scales: [1., 1., 1., 1.]
+        num_actions: 4
+
+  batch_size: 64 #200
+  val_batch_size: 8
+  lr: 1e-4
+  save_logs: False
+  finetune: True
+  proprio: ${proprio}
+  proprio_only: False
+  multi_task: ${multi_task}
+  finetune_on_heldout_envs: False
+  FT_heldout_cfg:
+    epochs: 5
+    eval_freq_epochs: 1
+    val_freq_epochs: 1
+    num_demos_train_per_task: 1
+    num_demos_val_per_task: 1
+  # optimizer config
+  optimizer:
+    name: AdamW
+    Adam:
+        lr: ${bc_kwargs.lr}
+        eps: 1e-8
+
+    AdamW:
+        lr: ${bc_kwargs.lr}
+        eps: 1e-8
+        weight_decay: 0.01
+
+    param_groups:
+        use: False
+        proprio_params:
+            lr: ${bc_kwargs.lr}
+        policy_params: 
+            lr: ${bc_kwargs.lr}
+        separate_lang_encoder_params:
+            lr: ${bc_kwargs.lr}
+        non_image_vision_encoder_params:
+            lr: ${bc_kwargs.lr}
+        text_encoder_params:
+            # Already frozen
+            lr: 0.0
+        adapter_vision_params:
+            lr: ${bc_kwargs.lr}
+        vision_backbone_params:
+            lr: ${bc_kwargs.lr}
+        transformer_adapter_params:
+            lr: ${bc_kwargs.lr}
+        transformer_non_adapter_params:
+            lr: ${bc_kwargs.lr}
+        non_grouped_params:
+            lr: ${bc_kwargs.lr}
+        multiview_encoder_params:
+            lr: ${bc_kwargs.lr}
+        hand_camera_params:
+            lr: ${bc_kwargs.lr}
+
+
+  # Scheduler config
+  scheduler:
+    use: True
+    name: timm_cosine
+
+    CosineAnnealingLR:
+        eta_min: 0.00001
+        t_max: -1
+        last_epoch: -1    # No warm restarts (simply follows cosine decay)
+    timm_cosine:
+        use_timm: True
+        sched: cosine
+        # epochs are updated in code: epochs <- total_epochs - warmup - cooldown
+        epochs: ${epochs}    # Total epochs to run (warmup + decay + cooldown)
+        min_lr: 1e-5         # k
+        warmup_lr: 1e-6
+        warmup_epochs: 10
+        cooldown_epochs: 5
+
+  grad_clip:
+    use: True
+    # TODO: Can add a norm type
+    norm: ${grad_clip_norm}
+
+grad_clip_norm: 1.0
+
+proprio_encoder:
+    proprio: ${proprio}
+    hidden_sizes: []
+    final_emb_size: 256
+    nonlinearity: 'relu'
+
+policy_config:
+    # shared, concat (one_hot vs lang), task_head, care
+    type: shared
+    # One
+    shared:
+        policy_mlp_kwargs:
+            hidden_sizes: [512, 512, 512]
+            # hidden_sizes: [1024, 1024, 512]
+            nonlinearity: 'relu'
+            use_batchnorm: False
+            use_tanh_action: ${env_kwargs.tanh_action.use}
+            # Only for 
+            predict_future:
+                use: False
+                size: 4
+
+        policy_GMM_kwargs:
+            num_components: 4
+            hidden_sizes: [512, 512, 512]
+            nonlinearity: 'relu'
+            use_batchnorm: False
+            use_tanh_action: ${env_kwargs.tanh_action.use}
+            predict_future:
+                use: False
+                total_actions: 4
+
+        concat_proprio: False
+        concat_language: False
+        binary_gripper_config:
+            use: False
+            low: -1
+            high: 1
+        use_GMM_action: ${bc_kwargs.use_GMM_actions}
+
+    concat:
+        # Only one_hot implemented for now.
+        type: one_hot
+        all_task: ${envs.names}
+        mlp_kwargs:
+            hidden_sizes: [256, 256]
+            nonlinearity: 'relu'
+            use_batchnorm: False
+            use_tanh_action: ${env_kwargs.tanh_action.use}
+
+# EncoderWithProprio params
+policy_encoder:
+    image_keys: ['left_cap2']
+    proprio_keys: ['proprio']
+    finetune_image_encoder: ${bc_kwargs.finetune}
+    randomize_task_description_sampling: True
+
+
+# avg_pool, cls_token, down_project
+image_encoder_kwargs:
+    # resnet18, resnet50
+    # resnet18_film, resnet50_film (Uses film)
+    # common are updated for all models
+    common:
+        augment_img: ${augment_img}
+        augment_padding: ${augment_padding}
+        initial_resize: ${augment_initial_resize}
+        use_crop_aug_during_eval: ${use_crop_aug_during_eval}
+        append_object_mask: None # 'mdetr', 'owl_vit'
+
+    mdetr_multiview:
+        image_augmentations:
+            left_cap2:
+                train:
+                    initial_resize: ${augment_initial_resize}
+                    random_crop: True
+                    augment_padding: ${augment_padding}
+                    color_jitter: False
+                eval:
+                    initial_resize: ${augment_initial_resize}
+                    random_crop: False
+                    augment_padding: ${augment_padding}
+                    color_jitter: False
+            eye_in_hand_90:
+                train:
+                    initial_resize: ${augment_initial_resize}
+                    random_crop: True
+                    augment_padding: ${augment_padding}
+                    color_jitter: True
+                    stochastic_jitter: True
+                eval:
+                    initial_resize: ${augment_initial_resize}
+                    random_crop: False
+                    augment_padding: ${augment_padding}
+                    color_jitter: False
+                    stochastic_jitter: False
+            robot0_eye_in_hand_90:
+                train:
+                    initial_resize: ${augment_initial_resize}
+                    random_crop: True
+                    augment_padding: ${augment_padding}
+                    color_jitter: True
+                    stochastic_jitter: True
+                eval:
+                    initial_resize: ${augment_initial_resize}
+                    random_crop: False
+                    augment_padding: ${augment_padding}
+                    color_jitter: False
+                    stochastic_jitter: False
+    
+    
+resnet_film_config:
+    use: False
+    use_in_layers: [1, 2, 3]
+    task_embedding_dim: 768
+    film_planes: [64, 128, 256, 512]
+    append_object_mask: ${image_encoder_kwargs.common.append_object_mask}
+
+
+language_config:
+    use: False
+    # distilBERT, roberta (CARE), random
+    language_model: 'distilBERT' # 'distilBERT'
+    train_task_embeddings: False
+    device: ${device}
+
+    roberta:
+        load_path: /home/mohit/projects/object_centric/r3m/evaluation/data/care_roberta/metaworld-mt10.json
+    distilBERT:
+        load_path: ''
+        token_max_len: 40
+    random:
+        task_embedding_dim: 128
+
+# general outputs
+job_name: 'mrest'
+
+wandb:
+    project: visual-repr-manip
+    entity: iam-lab
+
+    group: MW/emb_${embedding}/${mdetr.multiview.attn_type}_concat_${policy_config.shared.concat_proprio}/FPS_${multi_temporal_sensors.use}_${multi_temporal_sensors.i3_freq}/Dec14_90_cr2-SA-sine-hand
+    # group: MW/emb_${embedding}/${mdetr.multiview.attn_type}/Jun14_cr2-SA0-sine0-hand0
+    # group: MW0diff/emb_${embedding}/${mdetr.multiview.attn_type}/Jun16_I3h_cat_FT0_JT1
+    name: seed_${seed}_DemosPerTask_${num_demos_train_per_task}_ntasks_${envs.num_envs}_bs_${bc_kwargs.batch_size}_FT_${bc_kwargs.finetune}_aug_${augment_img}
+
+    # For CLIP Stuff
+    # group: MWClip/emb_${embedding}_${env_kwargs.load_path}/${clip.multiview.attn_type}/FPS_${multi_temporal_sensors.use}_${multi_temporal_sensors.i3_freq}/Jun1_FT0_JT1_MLP256
+    # name: seed_${seed}_DemosPerTask_${num_demos_train_per_task}_ntasks_${envs.num_envs}_bs_${bc_kwargs.batch_size}_FT_${bc_kwargs.finetune}_aug_${augment_img}
+
+    group_flava: MWFl/emb_${embedding}_${env_kwargs.load_path}/${flava.multiview.attn_type}/FPS_${multi_temporal_sensors.use}_${multi_temporal_sensors.i3_freq}/May30_FT0_JT1_cat
+    name_flava: seed_${seed}_DemosPerTask_${num_demos_train_per_task}_ntasks_${envs.num_envs}_bs_${bc_kwargs.batch_size}_FT_${bc_kwargs.finetune}_aug_${augment_img}
+
+    rlbench_group: RLB/i3_1_ih_1_prop_1/${rlbench_envs.use}/emb_${embedding}_${env_kwargs.load_path}/${mdetr.multiview.attn_type}/FPS_${multi_temporal_sensors.use}_${multi_temporal_sensors.i3_freq}/Dec13
+    rlbench_name: seed_${seed}_ntasks_${envs.num_envs}_bs_${bc_kwargs.batch_size}_FT_${bc_kwargs.finetune}_aug_${augment_img}
+
+    realworld_group: RW/${realworld_envs.use}/emb_${embedding}_${env_kwargs.load_path}/${mdetr.multiview.attn_type}/FPS_${multi_temporal_sensors.use}_${multi_temporal_sensors.i3_freq}/${bc_kwargs.loss_type}/May25_GP31_fut_FT00AugAd
+    realworld_name: seed_${seed}_ntasks_${envs.num_envs}_bs_${bc_kwargs.batch_size}_FT_${bc_kwargs.finetune}_aug_${augment_img}
+
+    saver:
+        upload: True
+        save_top_k: 5
+    saver_no_eval:
+        use: False
+        save_freq_epochs: 4
+
+hydra:
+    job:
+        name: BC_pretrained_rep_multitask

@@ -1,0 +1,2554 @@
+data:
+  save: True
+  data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/
+  prefix: 'sawyer_multiobj_skillcomp_put_nut_in_door_mtcolor_mt'
+  vary: target
+  num_demos_per_env_type:
+    train: 20
+    eval_syn_obj: 1
+    eval_syn_skill: 1
+    eval_syn_skill_obj: 1
+    eval_medium_obj_color_gen: 1
+    eval_skill_chain: 4
+    train2_gen: 4
+    eval_syn_obj_gen: 4
+    eval_skillcomp_stick_door_close: 4
+    eval_skillcomp_put_in_open_drawer: 4
+    eval_skillcomp_push_in_open_drawer: 4
+<<<<<<< HEAD
+    eval_skillcomp_put_nut_in_door: 4
+=======
+    eval_skillcomp_put_nut_in_door_mtcolor: 8
+>>>>>>> c4818a01f782be95389ab7d01218b61af8fbfd54
+
+seed: 8
+data_collect_types:
+  # - train
+  # - eval_syn_obj
+  # - eval_syn_skill
+  # - eval_syn_skill_obj
+  # - eval_medium_obj_color_gen
+  # - eval_skill_chain
+  # - train2_gen
+  # - eval_syn_obj_gen
+  # - eval_skillcomp_stick_door_close
+  # - eval_skillcomp_put_in_open_drawer
+  # - eval_skillcomp_push_in_open_drawer
+<<<<<<< HEAD
+  - eval_skillcomp_put_nut_in_door
+=======
+  - eval_skillcomp_put_nut_in_door_mtcolor
+>>>>>>> c4818a01f782be95389ab7d01218b61af8fbfd54
+
+object_descriptions_standard:
+  milk:
+    - 'milk'
+  coke:
+    - 'coke'
+    - 'red coke'
+  pepsi:
+    - 'pepsi'
+    - 'blue pepsi'
+  bread:
+    - 'bread'
+  bottle:
+    - 'bottle'
+  block_red:
+    - 'red block'
+  block_blue:
+    - 'blue block'
+  block_green:
+    - 'green block'
+  block_orange:
+    - 'orange block'
+  block_pink:
+    - 'pink block'
+  block_purple:
+    - 'purple block'
+  block_yellow:
+    - 'yellow block'
+  block_black:
+    - 'black block'
+  door:
+    - 'door'
+  door_small:
+    - 'door'
+  drawer:
+    - 'drawer'
+  drawer_small:
+    - 'drawer'
+  window:
+    - 'window'
+  RoundNut:
+    - 'round nut'
+  peg:
+    - 'peg'
+  faucetBase:
+    - 'faucet'
+  stick_red:
+    - 'red stick'
+    - 'red long block'
+  stick_blue:
+    - 'blue stick'
+    - 'blue long block'
+  stick_green:
+    - 'green stick'
+    - 'green long block'
+  stick_orange:
+    - 'orange stick'
+    - 'orange long block'
+  stick_pink:
+    - 'pink stick'
+    - 'pink long block'
+  stick_purple:
+    - 'purple stick'
+    - 'purple long block'
+  stick_yellow:
+    - 'yellow stick'
+    - 'yellow long block'
+  stick_black:
+    - 'black stick'
+    - 'black long block'
+
+
+object_descriptions_synonyms:
+  milk:
+    - 'cream carton'
+    - 'milk-cream carton'
+  coke:
+    - 'red can'
+    - 'red cylinder'
+    - 'coca cola'
+    - 'red coca cola can'
+  pepsi:
+    - 'blue can'
+    - 'blue cylinder'
+    - 'pepsi can'
+    - 'blue pepsi can'
+  bread:
+    - 'sourdough'
+  bottle:
+    - 'tonic'
+  blockA:
+    - 'red cuboid'
+    - 'red object'
+    - 'red box'
+  blockB:
+    - 'green cuboid'
+    - 'green object'
+    - 'green box'
+  blockC:
+    - 'blue cuboid'
+    - 'blue object'
+    - 'blue box'
+  blockD:
+    - 'yellow cuboid'
+    - 'yellow object'
+    - 'yellow box'
+  block_red:
+    - 'red cuboid'
+    - 'red object'
+    - 'red box'
+  block_blue:
+    - 'blue cuboid'
+    - 'blue object'
+    - 'blue box'
+  block_green:
+    - 'green cuboid'
+    - 'green object'
+    - 'green box'
+  block_orange:
+    - 'orange cuboid'
+    - 'orange object'
+    - 'orange box'
+  block_pink:
+    - 'pink cuboid'
+    - 'pink object'
+    - 'pink box'
+  block_purple:
+    - 'purple cuboid'
+    - 'purple object'
+    - 'purple box'
+  block_yellow:
+    - 'yellow cuboid'
+    - 'yellow object'
+    - 'yellow box'
+  block_black:
+    - 'black cuboid'
+    - 'black object'
+    - 'black box'
+  door:
+    - 'safe'
+    - 'locker'
+    - 'gate'
+  door_small:
+    - 'safe'
+    - 'locker'
+    - 'gate'
+  drawer:
+    - 'chest'
+    - 'cabinet'
+    - 'vault'
+  drawer_small:
+    - 'chest'
+    - 'cabinet'
+    - 'vault'
+  window:
+    - 'sliding window'
+  RoundNut:
+    - 'eyebolt'
+  peg:
+    - 'cylindrical rod'
+    - 'rod'
+  faucetBase:
+    - 'crank'
+    - 'winch'
+  stick_red:
+    - 'red brick'
+  stick_blue:
+    - 'blue brick'
+  stick_green:
+    - 'green brick'
+  stick_orange:
+    - 'orange brick'
+  stick_pink:
+    - 'pink brick'
+  stick_purple:
+    - 'purple brick'
+  stick_yellow:
+    - 'yellow brick'
+  stick_black:
+    - 'black brick'
+
+objects:
+  train: ['door', 'door_small', 'drawer', 'drawer_small', 'window', 'RoundNut', 'peg', 'faucetBase']
+  eval: []
+  all: ['door', 'door_small', 'drawer', 'drawer_small', 'window', 'RoundNut', 'peg', 'faucetBase']
+
+multiobj: True
+multicolor_blocks: True
+blocks:
+  train: ['block_red', 'block_blue', 'block_green', 'block_orange', 'block_pink', 'block_purple']
+  train_subset_A: ['block_red', 'block_blue', 'block_green']
+  train_subset_B: ['block_orange', 'block_pink', 'block_purple']
+  train_subset_C: ['block_orange', 'block_blue', 'block_green']
+  train_subset_D: ['block_red', 'block_blue']
+  train_subset_E: ['block_green', 'block_orange']
+  eval: ['block_yellow', 'block_black']
+  eval_syn: ['block_red', 'block_blue']
+  # Set in code as train_colors + eval_colors
+  all: ???
+
+# faucet: 'faucetBase'
+# nut: 'RountNut'
+# peg: 'peg'
+# window: 'window'
+# door: 'door'
+# drawer: drawer
+
+skills:
+  use: 'all'
+  train:
+  # Set use: all to loop through all skills and create one dataset for them
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'stack'
+      - 'pick_and_place'
+      - 'push_left'
+      - 'push_right'
+      # - 'push_forward'
+      - 'push_backward'
+      - 'drawer_open_goal'
+      - 'drawer_close_goal'
+      - 'door_lock_goal'
+      - 'door_open'
+      - 'door_close'
+      - 'faucet_rotate_goal'
+      - 'nut_pick'
+      - 'peg_insert'
+      - 'window_open'
+      - 'window_close'
+  eval_syn_obj:
+    use: 'all'
+    all_skills:
+      - 'drawer_open_goal'
+      - 'drawer_close_goal'
+      - 'door_open'
+      - 'door_close'
+      - 'door_lock_goal'
+      - 'window_open'
+      - 'window_close'
+  eval_syn_skill:
+    use: 'all'
+    all_skills:
+      - 'drawer_open_goal'
+      - 'drawer_close_goal'
+      - 'door_open'
+      - 'door_close'
+      - 'door_lock_goal'
+      - 'window_open'
+      - 'window_close'
+  eval_syn_skill_obj:
+    use: 'all'
+    all_skills:
+      - 'drawer_open_goal'
+      - 'drawer_close_goal'
+      - 'door_open'
+      - 'door_close'
+      - 'door_lock_goal'
+      - 'window_open'
+      - 'window_close'
+  eval_medium_obj_color_gen:
+    use: 'all'
+    all_skills:
+      - 'faucet_rotate_goal'
+      - 'nut_pick'
+      - 'peg_insert'
+  eval_skill_chain:
+    use: 'all'
+    all_skills:
+      - 'put_in_drawer'
+  train2_gen:
+  # Set use: all to loop through all skills and create one dataset for them
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'stack'
+      - 'pick_and_place'
+      - 'push_left'
+      - 'push_right'
+      # - 'push_forward'
+      - 'push_backward'
+      - 'drawer_open_goal'
+      - 'drawer_close_goal'
+      - 'door_lock_goal'
+      - 'door_open'
+      - 'door_close'
+      - 'faucet_rotate_goal'
+      - 'nut_pick'
+      - 'peg_insert'
+      - 'window_open'
+      - 'window_close'
+  eval_syn_obj_gen:
+  # Set use: all to loop through all skills and create one dataset for them
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'stack'
+      - 'pick_and_place'
+      - 'push_left'
+      - 'push_right'
+      # - 'push_forward'
+      - 'push_backward'
+      - 'drawer_open_goal'
+      - 'drawer_close_goal'
+      - 'door_lock_goal'
+      - 'door_open'
+      - 'door_close'
+      - 'faucet_rotate_goal'
+      - 'nut_pick'
+      - 'peg_insert'
+      - 'window_open'
+      - 'window_close'
+  eval_skillcomp_stick_door_close:
+    use: 'all'
+    all_skills:
+      - 'stick_door_close'
+  eval_skillcomp_put_in_open_drawer:
+    use: 'all'
+    all_skills:
+      - 'put_in_open_drawer'
+  eval_skillcomp_push_in_open_drawer:
+    use: 'all'
+    all_skills:
+      - 'push_in_open_drawer'
+<<<<<<< HEAD
+  eval_skillcomp_put_nut_in_door:
+=======
+  eval_skillcomp_put_nut_in_door_mtcolor:
+>>>>>>> c4818a01f782be95389ab7d01218b61af8fbfd54
+    use: 'all'
+    all_skills:
+      - 'put_nut_in_door'
+
+skill_descriptions_standard:
+  pick:
+    - "Pick <target>"
+  stack:
+    - "Stack <target> on <object>"
+  pick_and_place:
+    - "Pick and place <target>"
+  push_left:
+    - "Push to the left <target>"
+  push_right:
+    - "Push to the right <target>"
+  push_forward:
+    - "Push forward <target>"
+  push_backward:
+    - "Push backward <target>"
+  drawer_open_goal:
+    - "Pull open <target> till goal"
+  drawer_close_goal:
+    - "Close <target>"
+  door_lock_goal:
+    - "Lock <target>"
+    # - "Push down door handle"
+  door_open:
+    - "Open <target>"
+  door_close:
+    - "Close <target>"
+  faucet_rotate_goal:
+    - "Turn <target> to goal"
+  nut_pick:
+    - "Pick <target>"
+  peg_insert:
+    - "Pick round nut and insert into <target>"
+  window_open:
+    - "Open <target> till goal"
+  window_close:
+    - "Close <target>"
+  put_in_drawer:
+    - "Open drawer and pick and place <target> in drawer"
+  put_in_open_drawer:
+    - "Pick and place <target> in open <object>"
+  push_in_open_drawer:
+    - "Push <target> in open <object>"
+  stick_door_close:
+    - "Use <object> to close <target>"
+  put_nut_in_door:
+    - "Put <target> in open <object>"
+
+skill_descriptions_synonyms:
+  pick:
+    - "Pick up <target>"
+    - "Lift <target>"
+    - "Lift up <target>"
+  stack:
+    - "Pick <target> and put on top of <object>"
+    - "Lift up <target> and put on top of <object>"
+    - "Pick up <target> and place on top of <object>"
+    - "Pick up <target> reach above <object> and release"
+  pick_and_place:
+    - "Pick up <target> and place"
+    - "Lift <target> and place"
+    - "Pick <target> and release"
+    - "Pick <target> and put"
+  push_left:
+    - "Reach to right of <target> and push it to the left"
+    - "Reach to right of <target> and slide it to the left"
+  push_right:
+    - "Reach to left of <target> and push it to the right"
+    - "Reach to left of <target> and slide it to the right"
+  push_forward:
+    - "Reach behind <target> and push it to the front"
+    - "Reach behind <target> and slide it to the front"
+    - "Reach behind <target> and push it forward"
+  push_backward:
+    - "Reach in the front of <target> and push it to the back"
+    - "Reach in the front of <target> and slide it to the back"
+    - "Reach in the front of <target> and push it backwards"
+  drawer_open_goal:
+    - "Slide the <target> open till goal"
+  drawer_close_goal:
+    - "Slide the <target> close"
+  door_lock_goal:
+    - "Push down lock"
+    - "Push down latch"
+  door_open:
+    - "Pull the <target>"
+  door_close:
+    - "Push the <target>"
+    - "Shut the <target>"
+  faucet_rotate_goal:
+    - "Rotate the <target> till goal is reached"
+  nut_pick:
+    - "Lift up <target>"
+  peg_insert:
+    - "Lift up round nut and reach above <target> and release"
+  window_open:
+    - "Slide the <target> open"
+    - "Push the <target> backwards"
+    - "Pull the <target> backwards"
+  window_close:
+    - "Slide the <target> close"
+    - "Push the <target> forward"
+    - "Pull the <target> forward"
+  put_in_drawer:
+    - "Open drawer and pick and place <target> in drawer"
+  put_in_open_drawer:
+    - "Pick and place <target> in open <object>"
+  push_in_open_drawer:
+    - "Push <target> in open <object>"
+  stick_door_close:
+    - "Use <object> to close <target>"
+  put_nut_in_door:
+    - "Put <target> in open <object>"
+
+train:
+  only_use_block_objects: False
+  all_objects:
+    objects: ${objects.all}
+    blocks: ${blocks.all}
+
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ${blocks.train_subset_A}
+    target_objects: []
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ${blocks.train_subset_B}
+    target_objects: []
+    stack_on_objects: ${blocks.all}
+    # Gives us num_blocks x num_demos x  x 2 x 4 demonstrations
+    distractor_configs:
+      1:
+        distractors: ['window', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['drawer_small', 'block', 'RoundNut']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      3:
+        distractors: ['door', 'block', 'peg']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ${blocks.train_subset_C}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block', 'peg']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      2:
+        distractors: ['drawer', 'block', 'block', 'RoundNut']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['door_small', 'block', 'block', 'RoundNut']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ${blocks.train_subset_A}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'RoundNut']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ${blocks.train_subset_B}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['window', 'block', 'RoundNut']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ${blocks.train_subset_C}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ${blocks.train}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  drawer_open_goal:
+    skill_desc: ${skill_descriptions_standard.drawer_open_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['door', 'RoundNut']
+        num_demos_per_env: 4
+        blocks: []
+      3:
+        distractors: ['door_small', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  drawer_close_goal:
+    skill_desc: ${skill_descriptions_standard.drawer_close_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['door', 'RoundNut']
+        num_demos_per_env: 4
+        blocks: []
+      3:
+        distractors: ['door_small', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  door_lock_goal:
+    skill_desc: ${skill_descriptions_standard.door_lock_goal}
+    target_blocks: []
+    target_objects: ['door']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['window', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  door_open:
+    skill_desc: ${skill_descriptions_standard.door_open}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  door_close:
+    skill_desc: ${skill_descriptions_standard.door_close}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  faucet_rotate_goal:
+    skill_desc: ${skill_descriptions_standard.faucet_rotate_goal}
+    target_blocks: []
+    target_objects: ['faucetBase']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  nut_pick:
+    skill_desc: ${skill_descriptions_standard.nut_pick}
+    target_blocks: []
+    target_objects: ['RoundNut']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['peg', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  peg_insert:
+    skill_desc: ${skill_descriptions_standard.peg_insert}
+    target_blocks: []
+    target_objects: ['peg']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'window', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  window_open:
+    skill_desc: ${skill_descriptions_standard.window_open}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  window_close:
+    skill_desc: ${skill_descriptions_standard.window_close}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  object_description: ${object_descriptions_standard}
+
+eval_syn_obj:
+  only_use_block_objects: False
+  all_objects:
+    objects: ${objects.all}
+    blocks: ${blocks.all}
+
+  drawer_open_goal:
+    skill_desc: ${skill_descriptions_standard.drawer_open_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['door', 'RoundNut']
+        num_demos_per_env: 4
+        blocks: []
+      3:
+        distractors: ['door_small', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  drawer_close_goal:
+    skill_desc: ${skill_descriptions_standard.drawer_close_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['door', 'RoundNut']
+        num_demos_per_env: 4
+        blocks: []
+      3:
+        distractors: ['door_small', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  door_lock_goal:
+    skill_desc: ${skill_descriptions_standard.door_lock_goal}
+    target_blocks: []
+    target_objects: ['door']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['window', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  door_open:
+    skill_desc: ${skill_descriptions_standard.door_open}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  door_close:
+    skill_desc: ${skill_descriptions_standard.door_close}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  window_open:
+    skill_desc: ${skill_descriptions_standard.window_open}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  window_close:
+    skill_desc: ${skill_descriptions_standard.window_close}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  object_description: ${object_descriptions_synonyms}
+
+
+eval_syn_skill:
+  only_use_block_objects: False
+
+  all_objects:
+    objects: ${objects.all}
+    blocks: ${blocks.all}
+
+  drawer_open_goal:
+    skill_desc: ${skill_descriptions_synonyms.drawer_open_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['door', 'RoundNut']
+        num_demos_per_env: 4
+        blocks: []
+      3:
+        distractors: ['door_small', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  drawer_close_goal:
+    skill_desc: ${skill_descriptions_synonyms.drawer_close_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['door', 'RoundNut']
+        num_demos_per_env: 4
+        blocks: []
+      3:
+        distractors: ['door_small', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  door_lock_goal:
+    skill_desc: ${skill_descriptions_synonyms.door_lock_goal}
+    target_blocks: []
+    target_objects: ['door']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['window', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  door_open:
+    skill_desc: ${skill_descriptions_synonyms.door_open}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  door_close:
+    skill_desc: ${skill_descriptions_synonyms.door_close}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  window_open:
+    skill_desc: ${skill_descriptions_synonyms.window_open}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  window_close:
+    skill_desc: ${skill_descriptions_synonyms.window_close}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  object_description: ${object_descriptions_standard}
+
+
+eval_syn_skill_obj:
+  only_use_block_objects: False
+  all_objects:
+    objects: ${objects.all}
+    blocks: ${blocks.all}
+
+  drawer_open_goal:
+    skill_desc: ${skill_descriptions_synonyms.drawer_open_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['door', 'RoundNut']
+        num_demos_per_env: 4
+        blocks: []
+      3:
+        distractors: ['door_small', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  drawer_close_goal:
+    skill_desc: ${skill_descriptions_synonyms.drawer_close_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['door', 'RoundNut']
+        num_demos_per_env: 4
+        blocks: []
+      3:
+        distractors: ['door_small', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  door_lock_goal:
+    skill_desc: ${skill_descriptions_synonyms.door_lock_goal}
+    target_blocks: []
+    target_objects: ['door']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'RoundNut', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['window', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  door_open:
+    skill_desc: ${skill_descriptions_synonyms.door_open}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  door_close:
+    skill_desc: ${skill_descriptions_synonyms.door_close}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  window_open:
+    skill_desc: ${skill_descriptions_synonyms.window_open}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  window_close:
+    skill_desc: ${skill_descriptions_synonyms.window_close}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+
+  object_description: ${object_descriptions_synonyms}
+
+
+eval_medium_obj_color_gen:
+  only_use_block_objects: False
+  all_objects:
+    objects: ${objects.all}
+    blocks: ${blocks.all}
+
+  object_description: ${object_descriptions_standard}
+
+  faucet_rotate_goal:
+    skill_desc: ${skill_descriptions_standard.faucet_rotate_goal}
+    target_blocks: []
+    target_objects: ['faucetBase']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+        target_object_color_cfg:
+          faucetHandleColor: 'black'
+          faucetHead1: 'yellow'
+
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+        target_object_color_cfg:
+          faucetHandleColor: 'black'
+          faucetHead1: 'black'
+
+      3:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+        target_object_color_cfg:
+          faucetHandleColor: 'yellow'
+          faucetHead1: 'yellow'
+
+      4:
+        distractors: ['RoundNut', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+        target_object_color_cfg:
+          faucetHandleColor: 'yellow'
+          faucetHead1: 'black'
+
+  nut_pick:
+    skill_desc: ${skill_descriptions_standard.nut_pick}
+    target_blocks: []
+    target_objects: ['RoundNut']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+        target_object_color_cfg:
+          WrenchHandle: 'black'
+          PegCylinder: 'yellow'
+      2:
+        distractors: ['window', 'door_small', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+        target_object_color_cfg:
+          WrenchHandle: 'black'
+          PegCylinder: 'black'
+      3:
+        distractors: ['peg', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+        target_object_color_cfg:
+          WrenchHandle: 'yellow'
+          PegCylinder: 'black'
+
+  peg_insert:
+    skill_desc: ${skill_descriptions_standard.peg_insert}
+    target_blocks: []
+    target_objects: ['peg']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+        target_object_color_cfg:
+          WrenchHandle: 'black'
+          PegCylinder: 'sky_blue'
+
+      2:
+        distractors: ['RoundNut', 'window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+        target_object_color_cfg:
+          WrenchHandle: 'yellow'
+          PegCylinder: 'black'
+
+      3:
+        distractors: ['RoundNut', 'door', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+        target_object_color_cfg:
+          WrenchHandle: 'black'
+          PegCylinder: 'black'
+
+      4:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+        target_object_color_cfg:
+          WrenchHandle: 'yellow'
+          PegCylinder: 'sky_blue'
+
+
+eval_skill_chain:
+  only_use_block_objects: False
+  all_objects:
+    objects: ${objects.all}
+    blocks: ${blocks.all}
+
+  put_in_drawer:
+    skill_desc: ${skill_descriptions_standard.put_in_drawer}
+    target_blocks: []
+    target_objects: ${blocks.train}
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 1
+  
+  object_description: ${object_descriptions_standard}
+
+
+# Objects2 contains small objects as well as sticks
+objects2:
+  train: ['door', 'door_small', 'drawer', 'drawer_small', 'window', 'RoundNut', 'peg', 'faucetBase', 'coke', 'pepsi']
+  eval: []
+  all: ['door', 'door_small', 'drawer', 'drawer_small', 'window', 'RoundNut', 'peg', 'faucetBase', 'coke', 'pepsi']
+  small_objects: ['coke', 'pepsi']
+
+
+multicolor_sticks: True
+sticks:
+  train: ['stick_red', 'stick_blue', 'stick_green', 'stick_orange', 'stick_pink', 'stick_purple']
+  train_subset_A: ['stick_red', 'stick_blue', 'stick_green']
+  train_subset_B: ['stick_orange', 'stick_pink', 'stick_purple']
+  train_subset_C: ['stick_orange', 'stick_blue', 'stick_green']
+  train_subset_D: ['stick_red', 'stick_blue']
+  train_subset_E: ['stick_green', 'stick_orange']
+  eval: ['stick_yellow', 'stick_black']
+  eval_syn: ['stick_red', 'stick_blue']
+  # Set in code as train_colors + eval_colors
+  all: ???
+
+
+# Updated training with new objects (sticks, coke, can)
+train2_gen:
+  only_use_block_objects: False
+  has_small_objects: True
+
+  # Samples all object descriptions for task_command_type
+  sample_single_description: False
+
+  all_objects:
+    objects: ${objects2.all}
+    small_objects: ${objects2.small_objects}
+    blocks: ${blocks.all}
+    sticks: ${sticks.all}
+  
+  # NOTE: total objects in scene are (target objects) + distractor objects.
+  # If the distractor objects contains an object that is not present in the
+  # scene, e.g., if target object is a stick and the distractor config also
+  # contains a stick (and we have only 1 stick), then the distractor stick
+  # will not be used.
+
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    # target_blocks: ${blocks.train_subset_A}
+    target_blocks: []
+    target_sticks: ${sticks.train_subset_A}
+    target_objects: ['coke', 'pepsi']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['drawer', 'block', 'stick', 'small_obj', 'small_obj']
+        blocks: ${blocks.train_subset_A}
+        sticks: ${sticks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ${blocks.train_subset_B}
+    target_objects: []
+    stack_on_objects: ${blocks.all}
+    # Gives us num_blocks x num_demos x  x 2 x 4 demonstrations
+    distractor_configs:
+      1:
+        distractors: ['window', 'block', 'faucetBase', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['drawer_small', 'block', 'RoundNut', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      3:
+        distractors: ['door', 'block', 'peg', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ${blocks.train_subset_D}
+    target_sticks: ${sticks.train}
+    target_objects: ['coke', 'pepsi']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block', 'peg', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['window', 'block', 'small_obj', 'small_obj', 'stick']
+        blocks: ${blocks.train}
+        # Same distractors as target blocks (ensures shape generalization)
+        sticks: ${sticks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['door_small', 'block', 'small_obj', 'faucetBase', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['block', 'small_obj', 'faucetBase', 'stick']
+        blocks: ${blocks.train_subset_B}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ${blocks.train_subset_B}
+    target_sticks: ${sticks.train_subset_B}
+    target_objects: ['coke']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'RoundNut', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['door_small', 'block', 'small_obj', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_C}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ${blocks.train_subset_B}
+    target_sticks: ${sticks.train_subset_E}
+    target_objects: ['pepsi']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['window', 'block', 'RoundNut']
+        blocks: ${blocks.train_subset_E}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['drawer_small', 'small_obj', 'stick', 'peg']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ${blocks.train_subset_C}
+    target_sticks: ${sticks.train_subset_A}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ${blocks.train_subset_C}
+    target_sticks: ${sticks.train}
+    target_objects: ['pepsi', 'coke']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'door', 'block', 'small_obj']
+        blocks: ${blocks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['drawer_small', 'block', 'small_obj', 'block', 'stick']
+        blocks: ${blocks.train_subset_C}
+        sticks: ${sticks.train_subset_C}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  drawer_open_goal:
+    skill_desc: ${skill_descriptions_standard.drawer_open_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_variations: 2
+      2:
+        distractors: ['door', 'RoundNut', 'small_obj']
+        num_demos_per_env: 4
+        blocks: []
+        num_distractor_variations: 1
+      3:
+        distractors: ['door_small', 'RoundNut', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'stick', 'small_obj']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  drawer_close_goal:
+    skill_desc: ${skill_descriptions_standard.drawer_close_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 2
+        num_distractor_variations: 2
+      2:
+        distractors: ['door', 'RoundNut', 'stick']
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        blocks: []
+        num_distractor_variations: 1
+      3:
+        distractors: ['door_small', 'RoundNut', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  door_lock_goal:
+    skill_desc: ${skill_descriptions_standard.door_lock_goal}
+    target_blocks: []
+    target_objects: ['door']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'RoundNut', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['window', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  door_open:
+    skill_desc: ${skill_descriptions_standard.door_open}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  door_close:
+    skill_desc: ${skill_descriptions_standard.door_close}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  faucet_rotate_goal:
+    skill_desc: ${skill_descriptions_standard.faucet_rotate_goal}
+    target_blocks: []
+    target_objects: ['faucetBase']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'small_obj', 'stick', 'small_obj']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  nut_pick:
+    skill_desc: ${skill_descriptions_standard.nut_pick}
+    target_blocks: []
+    target_objects: ['RoundNut']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'door_small', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['peg', 'faucetBase', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  peg_insert:
+    skill_desc: ${skill_descriptions_standard.peg_insert}
+    target_blocks: []
+    target_objects: ['peg']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['RoundNut', 'drawer', 'door', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'window', 'door_small', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      4:
+        distractors: ['RoundNut', 'door', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      5:
+        distractors: ['RoundNut', 'faucetBase', 'small_obj', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  window_open:
+    skill_desc: ${skill_descriptions_standard.window_open}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  window_close:
+    skill_desc: ${skill_descriptions_standard.window_close}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['block', 'stick', 'faucetBase']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_C}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  object_description: ${object_descriptions_standard}
+
+
+# Updated training with new objects (sticks, coke, can)
+eval_syn_obj_gen:
+  only_use_block_objects: False
+  has_small_objects: True
+
+  all_objects:
+    objects: ${objects2.all}
+    small_objects: ${objects2.small_objects}
+    blocks: ${blocks.all}
+    sticks: ${sticks.all}
+  
+  # NOTE: total objects in scene are (target objects) + distractor objects.
+  # If the distractor objects contains an object that is not present in the
+  # scene, e.g., if target object is a stick and the distractor config also
+  # contains a stick (and we have only 1 stick), then the distractor stick
+  # will not be used.
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    # target_blocks: ${blocks.train_subset_A}
+    target_blocks: []
+    target_sticks: ${sticks.train_subset_A}
+    target_objects: ['coke', 'pepsi']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['drawer', 'block', 'stick', 'small_obj', 'small_obj']
+        blocks: ${blocks.train_subset_A}
+        sticks: ${sticks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_block_variations: 2
+
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ${blocks.train_subset_B}
+    target_objects: []
+    stack_on_objects: ${blocks.all}
+    # Gives us num_blocks x num_demos x  x 2 x 4 demonstrations
+    distractor_configs:
+      1:
+        distractors: ['window', 'block', 'faucetBase', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['drawer_small', 'block', 'RoundNut', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      3:
+        distractors: ['door', 'block', 'peg', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ${blocks.train_subset_D}
+    target_sticks: ${sticks.train}
+    target_objects: ['coke', 'pepsi']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block', 'peg', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['window', 'block', 'small_obj', 'small_obj', 'stick']
+        blocks: ${blocks.train}
+        # Same distractors as target blocks (ensures shape generalization)
+        sticks: ${sticks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['door_small', 'block', 'small_obj', 'faucetBase', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['block', 'small_obj', 'faucetBase', 'stick']
+        blocks: ${blocks.train_subset_B}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ${blocks.train_subset_B}
+    target_sticks: ${sticks.train_subset_B}
+    target_objects: ['coke']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'RoundNut', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['door_small', 'block', 'small_obj', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_C}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ${blocks.train_subset_B}
+    target_sticks: ${sticks.train_subset_E}
+    target_objects: ['pepsi']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['window', 'block', 'RoundNut']
+        blocks: ${blocks.train_subset_E}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['drawer_small', 'small_obj', 'stick', 'peg']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ${blocks.train_subset_C}
+    target_sticks: ${sticks.train_subset_A}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'faucetBase']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ${blocks.train_subset_C}
+    target_sticks: ${sticks.train}
+    target_objects: ['pepsi', 'coke']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'door', 'block', 'small_obj']
+        blocks: ${blocks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['drawer_small', 'block', 'small_obj', 'block', 'stick']
+        blocks: ${blocks.train_subset_C}
+        sticks: ${sticks.train_subset_C}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  drawer_open_goal:
+    skill_desc: ${skill_descriptions_standard.drawer_open_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_variations: 2
+      2:
+        distractors: ['door', 'RoundNut', 'small_obj']
+        num_demos_per_env: 4
+        blocks: []
+        num_distractor_variations: 1
+      3:
+        distractors: ['door_small', 'RoundNut', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'stick', 'small_obj']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  drawer_close_goal:
+    skill_desc: ${skill_descriptions_standard.drawer_close_goal}
+    target_blocks: []
+    target_objects: [drawer, drawer_small]
+    distractor_configs:
+      1:
+        distractors: ['door', 'block', 'block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 2
+        num_distractor_variations: 2
+      2:
+        distractors: ['door', 'RoundNut', 'stick']
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        blocks: []
+        num_distractor_variations: 1
+      3:
+        distractors: ['door_small', 'RoundNut', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['peg', 'block', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  door_lock_goal:
+    skill_desc: ${skill_descriptions_standard.door_lock_goal}
+    target_blocks: []
+    target_objects: ['door']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 2
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'RoundNut', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['window', 'block', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  door_open:
+    skill_desc: ${skill_descriptions_standard.door_open}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  door_close:
+    skill_desc: ${skill_descriptions_standard.door_close}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  faucet_rotate_goal:
+    skill_desc: ${skill_descriptions_standard.faucet_rotate_goal}
+    target_blocks: []
+    target_objects: ['faucetBase']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'coke', 'stick', 'small_obj']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  nut_pick:
+    skill_desc: ${skill_descriptions_standard.nut_pick}
+    target_blocks: []
+    target_objects: ['RoundNut']
+    distractor_configs:
+      1:
+        distractors: ['drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['window', 'door_small', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['peg', 'faucetBase', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  peg_insert:
+    skill_desc: ${skill_descriptions_standard.peg_insert}
+    target_blocks: []
+    target_objects: ['peg']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'drawer', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      2:
+        distractors: ['RoundNut', 'drawer', 'door', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'window', 'door_small', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_A}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      4:
+        distractors: ['RoundNut', 'door', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      5:
+        distractors: ['RoundNut', 'faucetBase', 'small_obj', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+  window_open:
+    skill_desc: ${skill_descriptions_standard.window_open}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['block', 'block', 'faucetBase', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  window_close:
+    skill_desc: ${skill_descriptions_standard.window_close}
+    target_blocks: []
+    target_objects: ['window']
+    distractor_configs:
+      1:
+        distractors: ['RoundNut', 'door', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['RoundNut', 'door_small', 'block', 'small_obj']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_B}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      4:
+        distractors: ['block', 'stick', 'faucetBase']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train_subset_C}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+
+  object_description: ${object_descriptions_synonyms}
+
+
+# Evaluate for skill composition
+eval_skillcomp_stick_door_close:
+  only_use_block_objects: False
+  has_small_objects: True
+
+  sample_single_description: True
+
+  object_description: ${object_descriptions_standard}
+
+  all_objects:
+    objects: ${objects2.all}
+    small_objects: ${objects2.small_objects}
+    blocks: ${blocks.all}
+    sticks: ${sticks.all}
+  
+  stick_door_close:
+    skill_desc: ${skill_descriptions_standard.stick_door_close}
+    target_blocks: []
+    target_objects: ['door', 'door_small']
+    # stack_on_objects: ['stick_red', 'stick_yellow', 'stick_black']
+    auxiliary_objects: 
+      - ['stick_red']
+      - ['stick_blue']
+      - ['stick_yellow']
+      - ['stick_black']
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_stack_on_objects_for_one_target: 3
+    num_distractor_block_variations: 2
+  
+    distractor_configs:
+      1:
+        distractors: ['block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+
+# Evaluate for skill composition
+eval_skillcomp_put_in_open_drawer:
+  only_use_block_objects: False
+  has_small_objects: True
+
+  sample_single_description: True
+  
+  object_description: ${object_descriptions_standard}
+
+  all_objects:
+    objects: ${objects2.all}
+    small_objects: ${objects2.small_objects}
+    blocks: ${blocks.all}
+    sticks: ${sticks.all}
+
+  put_in_open_drawer:
+    skill_desc: ${skill_descriptions_standard.put_in_open_drawer}
+    target_blocks: ['block_red', 'block_blue', 'block_yellow', 'block_black']
+    target_objects: []
+    auxiliary_objects: 
+      - ['drawer']
+      - ['drawer_small']
+    num_demos_per_env: 4
+    num_stack_on_objects_for_one_target: 3
+    num_distractor_block_variations: 2
+  
+    distractor_configs:
+      1:
+        distractors: ['block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+# Evaluate for skill composition
+eval_skillcomp_push_in_open_drawer:
+  only_use_block_objects: False
+  has_small_objects: True
+
+  sample_single_description: True
+  
+  object_description: ${object_descriptions_standard}
+
+  all_objects:
+    objects: ${objects2.all}
+    small_objects: ${objects2.small_objects}
+    blocks: ${blocks.all}
+    sticks: ${sticks.all}
+
+  push_in_open_drawer:
+    skill_desc: ${skill_descriptions_standard.push_in_open_drawer}
+    target_blocks: ['block_red', 'block_blue', 'block_yellow', 'block_black']
+    target_objects: []
+    auxiliary_objects: 
+      - ['drawer']
+      - ['drawer_small']
+    num_demos_per_env: 4
+    num_stack_on_objects_for_one_target: 3
+    num_distractor_block_variations: 2
+  
+    distractor_configs:
+      1:
+        distractors: ['block', 'block']
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+      2:
+        distractors: ['block', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 1
+      3:
+        distractors: ['RoundNut', 'faucetBase', 'stick']
+        blocks: ${blocks.train}
+        sticks: ${sticks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+
+<<<<<<< HEAD
+eval_skillcomp_put_nut_in_door:
+=======
+eval_skillcomp_put_nut_in_door_mtcolor:
+>>>>>>> c4818a01f782be95389ab7d01218b61af8fbfd54
+  only_use_block_objects: False
+  has_small_objects: True
+
+  sample_single_description: True
+  
+  object_description: ${object_descriptions_standard}
+
+  all_objects:
+    objects: ${objects2.all}
+    small_objects: ${objects2.small_objects}
+    blocks: ${blocks.all}
+    sticks: ${sticks.all}
+
+  put_nut_in_door:
+    skill_desc: ${skill_descriptions_standard.put_nut_in_door}
+    target_blocks: []
+    target_objects: ['RoundNut']
+    auxiliary_objects: 
+      - ['door']
+      - ['door_small']
+<<<<<<< HEAD
+    num_demos_per_env: 4
+    num_stack_on_objects_for_one_target: 3
+    num_distractor_block_variations: 2
+=======
+    num_demos_per_env: 8
+    num_stack_on_objects_for_one_target: 3
+    num_distractor_block_variations: 1
+>>>>>>> c4818a01f782be95389ab7d01218b61af8fbfd54
+  
+    distractor_configs:
+      1:
+        distractors: ['block', 'block']
+<<<<<<< HEAD
+        blocks: ${blocks.train}
+        num_demos_per_env: 4
+        num_distractor_variations: 2
+=======
+        blocks: ['block_red', 'block_blue']
+        num_demos_per_env: 8
+        num_distractor_variations: 1
+        target_object_color_cfg:
+          WrenchHandle: 'green'
+          PegCylinder: 'red'
+      2:
+        distractors: ['block', 'block']
+        blocks: ['block_red', 'block_blue']
+        num_demos_per_env: 8
+        num_distractor_variations: 1
+        target_object_color_cfg:
+          WrenchHandle: 'yellow'
+          PegCylinder: 'red'
+>>>>>>> c4818a01f782be95389ab7d01218b61af8fbfd54

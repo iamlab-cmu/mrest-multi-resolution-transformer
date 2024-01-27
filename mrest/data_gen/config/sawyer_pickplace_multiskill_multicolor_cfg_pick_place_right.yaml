@@ -1,0 +1,286 @@
+data:
+  save: True
+  data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/
+  prefix: 'sawyer_mt_multicolor_blocks_pick_place_right_small'
+  vary: target
+  # These flags are overriden by skill specific flags if provided
+  num_demos_per_env_type:
+    train: 40
+    eval: 20
+    # eval_1: 5
+
+seed: 8
+data_collect_types:
+  - train
+  - eval
+  # - eval_1
+  
+object_descriptions_standard:
+  milk:
+    - 'milk'
+  coke:
+    - 'coke'
+  pepsi:
+    - 'pepsi'
+  bread:
+    - 'bread'
+  bottle:
+    - 'bottle'
+  blockA:
+    - 'red block'
+  blockB:
+    - 'green block'
+  blockC:
+    - 'blue block'
+  blockD:
+    - 'yellow block'
+  block_red:
+    - 'red block'
+  block_blue:
+    - 'blue block'
+  block_green:
+    - 'green block'
+  block_orange:
+    - 'orange block'
+  block_pink:
+    - 'pink block'
+  block_purple:
+    - 'purple block'
+  block_yellow:
+    - 'yellow block'
+  block_black:
+    - 'black block'
+
+object_descriptions_synonyms:
+  milk:
+    - 'cream carton'
+    - 'milk-cream carton'
+  coke:
+    - 'coca cola'
+  pepsi:
+    - 'pepsi can'
+  bread:
+    - 'sourdough'
+  bottle:
+    - 'tonic'
+  blockA:
+    - 'red cuboid'
+    - 'red object'
+    - 'red box'
+  blockB:
+    - 'green cuboid'
+    - 'green object'
+    - 'green box'
+  blockC:
+    - 'blue cuboid'
+    - 'blue object'
+    - 'blue box'
+  blockD:
+    - 'yellow cuboid'
+    - 'yellow object'
+    - 'yellow box'
+  block_red:
+    - 'red cuboid'
+    - 'red object'
+    - 'red box'
+  block_blue:
+    - 'blue cuboid'
+    - 'blue object'
+    - 'blue box'
+  block_green:
+    - 'green cuboid'
+    - 'green object'
+    - 'green box'
+  block_orange:
+    - 'orange cuboid'
+    - 'orange object'
+    - 'orange box'
+  block_pink:
+    - 'pink cuboid'
+    - 'pink object'
+    - 'pink box'
+  block_purple:
+    - 'purple cuboid'
+    - 'purple object'
+    - 'purple box'
+  block_yellow:
+    - 'yellow cuboid'
+    - 'yellow object'
+    - 'yellow box'
+  block_black:
+    - 'black cuboid'
+    - 'black object'
+    - 'black box'
+
+objects:
+  train: ['coke', 'milk', 'bread', 'bottle']
+  eval: ['pepsi']
+
+multicolor_blocks: True
+blocks:
+  train: ['block_red', 'block_blue', 'block_green', 'block_orange', 'block_pink', 'block_purple']
+  train_subset: ['block_red']
+  stack_on_object_subset: ['block_blue']
+  all_subset: ['block_red', 'block_blue','block_yellow', 'block_black']
+  eval: ['block_yellow', 'block_black']
+  # Set in code as train_colors + eval_colors
+  all: ???
+
+
+skills:
+  use: 'all'
+  train:
+  # Set use: all to loop through all skills and create one dataset for them
+    use: 'all'
+    all_skills:
+      - 'pick_and_place_right'
+  eval:
+    use: 'all'
+    all_skills:
+      - 'pick_and_place_right'
+
+skill_descriptions_standard:
+  pick:
+    - "Pick <target>"
+  stack:
+    - "Stack <target> on <object>"
+  pick_and_place:
+    - "Pick and place <target>"
+  push_left:
+    - "Push <target> to the left"
+  push_right:
+    - "Push <target> to the right"
+  push_forward:
+    - "Push <target> to the front"
+  push_backward:
+    - "Push <target> to the back"
+  reach_left:
+    - "Reach to the left of <target>"
+  reach_right:
+    - "Reach to the right of <target>"
+  reach_front:
+    - "Reach in front of <target>"
+  reach_back:
+    - "Reach to the back of <target>"
+  reach_above:
+    - "Reach above <target>"
+  pick_and_place_left:
+    - "Pick <target> and place to the left of <object>"
+  pick_and_place_right:
+    - "Pick <target> and place to the right of <object>"
+  pick_and_place_front:
+    - "Pick <target> and place in front of <object>"
+  pick_and_place_back:
+    - "Pick <target> and place to the back of <object>"
+
+skill_descriptions_synonyms:
+  pick:
+    - "Pick up <target>"
+    - "Lift <target>"
+    - "Lift up <target>"
+  stack:
+    - "Pick <target> and put on top of <object>"
+    - "Lift up <target> and put on top of <object>"
+    - "Pick up <target> and place on top of <object>"
+    - "Pick up <target> reach above <object> and release"
+  pick_and_place:
+    - "Pick up <target> and place"
+    - "Lift <target> and place"
+    - "Pick <target> and release"
+    - "Pick <target> and put"
+  push_left:
+    - "Reach to right of <target> and push it to the left"
+    - "Reach to right of <target> and slide it to the left"
+  push_right:
+    - "Reach to left of <target> and push it to the right"
+    - "Reach to left of <target> and slide it to the right"
+  push_forward:
+    - "Reach behind <target> and push it to the front"
+    - "Reach behind <target> and slide it to the front"
+    - "Reach behind <target> and push it forward"
+  push_backward:
+    - "Reach in the front of <target> and push it to the back"
+    - "Reach in the front of <target> and slide it to the back"
+    - "Reach in the front of <target> and push it backwards"
+  reach_left:
+    - "Reach to the left of <target>"
+  reach_right:
+    - "Reach to the right of <target>"
+  reach_front:
+    - "Reach in front of <target>"
+  reach_back:
+    - "Reach behind <target>"
+  reach_above:
+    - "Reach above <target>"
+  pick_and_place_left:
+    - "Lift <target> and place to the left of <object>"
+    - "Pick <target> and put to the left of <object>"
+    - "Pick up <target> then reach to the left of <object> and release"
+  pick_and_place_right:
+    - "Lift <target> and place to the right of <object>"
+    - "Pick <target> and put to the right of <object>"
+    - "Pick up <target> then reach to the right of <object> and release"
+  pick_and_place_front:
+    - "Lift <target> and place in front of <object>"
+    - "Pick <target> and put in front of <object>"
+    - "Pick up <target> then reach in front of <object> and release"
+  pick_and_place_back:
+    - "Lift <target> and place to the back of <object>"
+    - "Pick <target> and put to the back of <object>"
+    - "Pick up <target> then reach behind <object> and release"
+
+train:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: ${blocks.train}
+    all: ${blocks.all_subset}
+  pick_and_place_right:
+    skill_desc: ${skill_descriptions_standard.pick_and_place_right}
+    target_blocks: ${blocks.train_subset}
+    stack_on_objects: ${blocks.stack_on_object_subset}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 100
+    num_stack_on_objects_for_one_target: 1
+    num_distractor_block_variations: 1
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_standard}
+
+eval:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: ${blocks.eval}
+    all: ${blocks.all_subset}
+  pick_and_place_right:
+    skill_desc: ${skill_descriptions_standard.pick_and_place_right}
+    target_blocks: ${blocks.stack_on_object_subset}
+    stack_on_objects: ${blocks.train_subset}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 10
+    num_stack_on_objects_for_one_target: 1
+    num_distractor_block_variations: 1
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_standard}

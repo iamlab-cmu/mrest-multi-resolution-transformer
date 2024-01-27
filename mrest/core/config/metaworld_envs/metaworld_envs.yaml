@@ -1,0 +1,93 @@
+use: mt_sawyer_multiskill_multiview_noise_blockonly_target_45
+
+# NOTE: This is possibly duplicate of `mt_sawyer_multiskill_multiview_blockonly_noise_target` above.
+# TODO: Check later
+mt_sawyer_multiskill_multiview_noise_blockonly_target:
+    type: sawyer_multiskill_multiview_blockonly_target
+    is_parameterized: True
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/sawyer_mt_gen_multicolor_multiview_block_noise_with_correct_action_multiskill_target
+    # data_dir: /home/mohit/experiment_results/object_centric/r3m/data/multiview/sawyer_mt_gen_multicolor_multiview_block_noise_with_correct_action_multiskill_target
+    max_train_tasks: 4
+    num_demos_train_per_task: 3
+    num_demos_val_per_task: 1
+    episode_len: 200
+    names: []
+    camera_names: ['left_cap2', 'eye_in_hand_90']
+    heldout_env_names: []
+
+# USE THIS
+mt_sawyer_multiskill_multiview_noise_blockonly_target_45:
+    type: sawyer_multiview_blockonly_target_45
+    is_parameterized: True
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    data_dir: /home/mohit/experiment_results/object_centric/r3m/data/multiview/sawyer_mtcolor_mtview_block_noise_with_correct_action_mtskill_target_hand_45/multiskill_target
+    max_train_tasks: 4
+    num_demos_train_per_task: 3
+    num_demos_val_per_task: 0
+    episode_len: 200
+    names: []
+    camera_names: ['left_cap2', 'eye_in_hand_45']
+    heldout_env_names: []
+
+    
+# ==== Procedural envs ====
+mt_sawyer_multiskill_multiview_procedural_objects_target:
+    type: sawyer_multiview_procedural_objects
+    is_parameterized: True
+    procedural_objects: True
+    num_demos_train_per_task: 20
+    num_demos_train_per_task_cfg:
+        use: True
+        # NOTE: if some target-object, skill pair is not found here then it's default
+        # value will be used (i.e. value in num_demos_train_per_task)
+        target_obj_skill_demo_counts:
+            block_red:
+                pick: 8
+                reach_above: 4
+                pick_and_place: 8
+            block_blue:
+                pick: 8
+                reach_above: 4
+                pick_and_place: 8
+            block_green:
+                pick: 8
+                reach_above: 4
+                pick_and_place: 8
+            red_mug:
+                pick: 12
+                reach_above: 6
+                pick_and_place: 20
+            white_mug:
+                pick: 12
+                reach_above: 6
+                pick_and_place: 20
+            green_shoe:
+                pick: 12
+                reach_above: 6
+                pick_and_place: 12
+            reebok_blue_shoe:
+                pick: 12
+                reach_above: 4
+                pick_and_place: 12
+            supplement0:
+                pick: 10
+                reach_above: 4
+                pick_and_place: 12
+            supplement2:
+                pick: 10
+                reach_above: 4
+                pick_and_place: 12
+
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    data_dir: /home/mohit/experiment_results/object_centric/r3m/data/multiview/sawyer_shape_gen_multiskill_procedural_with_bottles_multiskill_target
+    max_train_tasks: 200
+    num_demos_val_per_task: 2
+    episode_len: 250
+    names: []
+    camera_names: ['left_cap2', 'robot0_eye_in_hand_90']
+    # camera_names: ['left_cap2']
+    heldout_env_names: []

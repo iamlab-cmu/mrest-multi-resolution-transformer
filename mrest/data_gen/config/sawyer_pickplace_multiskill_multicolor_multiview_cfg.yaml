@@ -1,0 +1,837 @@
+data:
+  save: True
+  data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/
+  # prefix: 'sawyer_mt_gen_multicolor_multiview_block_noise_with_correct_action'
+  prefix: ''
+  vary: target
+  # These flags are overriden by skill specific flags if provided
+  num_demos_per_env_type:
+    train: 5
+    eval: 5
+    eval_1: 5
+    train_binpick: 10
+    eval_binpick: 10
+    eval_binpick_color: 10
+    eval_binpick_binpos: 10
+    train_buttonpush: 10
+    eval_buttonpush: 10
+    eval_ungrounded_novel_color_white: 10
+    eval_ungrounded_novel_color_skyblue: 10
+    eval_ungrounded_novel_color_olive: 10
+    eval_ungrounded_novel_color_brown: 10
+
+seed: 8
+data_collect_types:
+  - train
+  - eval
+  - eval_1
+  # - train_buttonpush
+  # - eval_buttonpush
+  # - train_binpick
+  # - eval_binpick_color
+  # - eval_binpick_binpos
+  - eval_ungrounded_novel_color_white
+  - eval_ungrounded_novel_color_skyblue
+  # - eval_ungrounded_novel_color_olive
+  - eval_ungrounded_novel_color_brown
+
+
+object_descriptions_standard:
+  milk:
+    - 'milk'
+  coke:
+    - 'coke'
+  pepsi:
+    - 'pepsi'
+  bread:
+    - 'bread'
+  bottle:
+    - 'bottle'
+  blockA:
+    - 'red block'
+  blockB:
+    - 'green block'
+  blockC:
+    - 'blue block'
+  blockD:
+    - 'yellow block'
+  block_red:
+    - 'red block'
+  block_blue:
+    - 'blue block'
+  block_green:
+    - 'green block'
+  block_orange:
+    - 'orange block'
+  block_pink:
+    - 'pink block'
+  block_purple:
+    - 'purple block'
+  block_yellow:
+    - 'yellow block'
+  block_black:
+    - 'black block'
+  block_white:
+    - 'white block'
+  block_sky_blue:
+    - 'sky blue block'
+  block_olive:
+    - 'olive block'
+  block_brown:
+    - 'brown block'
+
+object_descriptions_synonyms:
+  milk:
+    - 'cream carton'
+    - 'milk-cream carton'
+  coke:
+    - 'coca cola'
+  pepsi:
+    - 'pepsi can'
+  bread:
+    - 'sourdough'
+  bottle:
+    - 'tonic'
+  blockA:
+    - 'red cuboid'
+  blockB:
+    - 'green cuboid'
+  blockC:
+    - 'blue cuboid'
+  blockD:
+    - 'yellow cuboid'
+  block_red:
+    - 'red cuboid'
+  block_blue:
+    - 'blue cuboid'
+  block_green:
+    - 'green cuboid'
+  block_orange:
+    - 'orange cuboid'
+  block_pink:
+    - 'pink cuboid'
+  block_purple:
+    - 'purple cuboid'
+  block_yellow:
+    - 'yellow cuboid'
+  block_black:
+    - 'black cuboid'
+  block_white:
+    - 'white cuboid'
+  block_sky_blue:
+    - 'sky blue cuboid'
+  block_olive:
+    - 'olive cuboid'
+  block_brown:
+    - 'brown cuboid'
+
+objects:
+  train: ['coke', 'milk', 'bread', 'bottle']
+  eval: ['pepsi']
+
+multicolor_blocks: True
+blocks:
+  train: ['block_red', 'block_blue', 'block_green', 'block_orange', 'block_pink', 'block_purple']
+  eval: ['block_yellow', 'block_black']
+  # Set in code as train_colors + eval_colors
+  all: ???
+
+skills:
+  use: 'all'
+  train:
+  # Set use: all to loop through all skills and create one dataset for them
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'stack'
+      - 'pick_and_place'
+      - 'push_left'
+      - 'push_right'
+      - 'push_forward'
+      - 'push_backward'
+  eval:
+    use: 'all'
+    all_skills:
+      - 'pick'
+      - 'stack'
+      - 'pick_and_place'
+      - 'push_left'
+      - 'push_right'
+      - 'push_forward'
+      - 'push_backward'
+    
+  train_buttonpush:
+    use: 'all'
+    all_skills:
+      - 'buttonpush'
+
+  eval_buttonpush:
+    use: 'all'
+    all_skills:
+      - 'buttonpush'
+    
+  train_binpick:
+    use: 'all'
+    all_skills:
+      - 'binpick'
+
+  eval_binpick_color:
+    use: 'all'
+    all_skills:
+      - 'binpick'
+
+  eval_binpick_binpos:
+    use: 'all'
+    all_skills:
+      - 'binpick'
+
+  eval_ungrounded_novel_color_white:
+    use: 'all'
+    # Use all train skills (since this is just pick-place)
+    all_skills: ${skills.train.all_skills}
+  
+  eval_ungrounded_novel_color_skyblue:
+    use: 'all'
+    all_skills: ${skills.train.all_skills}
+
+  eval_ungrounded_novel_color_olive:
+    use: 'all'
+    all_skills: ${skills.train.all_skills}
+  
+  eval_ungrounded_novel_color_brown:
+    use: 'all'
+    all_skills: ${skills.train.all_skills}
+
+skill_descriptions_standard:
+  pick:
+    - "Pick <target>"
+  stack:
+    - "Stack <target> on <object>"
+  pick_and_place:
+    - "Pick and place <target>"
+  push_left:
+    - "Push <target> to the left"
+  push_right:
+    - "Push <target> to the right"
+  push_forward:
+    - "Push <target> to the front"
+  push_backward:
+    - "Push <target> to the back"
+
+skill_descriptions_synonyms:
+  pick:
+    - "Pick up <target>"
+    - "Lift <target>"
+    - "Lift up <target>"
+  stack:
+    - "Pick <target> and put on top of <object>"
+    - "Lift up <target> and put on top of <object>"
+    - "Pick up <target> and place on top of <object>"
+    - "Pick up <target> reach above <object> and release"
+  pick_and_place:
+    - "Pick up <target> and place"
+    - "Lift <target> and place"
+    - "Pick <target> and release"
+    - "Pick <target> and put"
+  push_left:
+    - "Reach to right of <target> and push it to the left"
+    - "Reach to right of <target> and slide it to the left"
+  push_right:
+    - "Reach to left of <target> and push it to the right"
+    - "Reach to left of <target> and slide it to the right"
+  push_forward:
+    - "Reach behind <target> and push it to the front"
+    - "Reach behind <target> and slide it to the front"
+    - "Reach behind <target> and push it forward"
+  push_backward:
+    - "Reach in the front of <target> and push it to the back"
+    - "Reach in the front of <target> and slide it to the back"
+    - "Reach in the front of <target> and push it backwards"
+
+
+train:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: ${blocks.train}
+    all: ${blocks.all}
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ${blocks.train}
+    target_objects: ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_distractor_block_variations: 4 # 2
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ${blocks.train}
+    stack_on_objects: ${blocks.all}
+    # Gives us num_blocks x num_demos x  x 2 x 4 demonstrations
+    num_demos_per_env: 4
+    num_stack_on_objects_for_one_target: 3
+    num_distractor_block_variations: 4 # 2
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ${blocks.train}
+    target_objects:  ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_distractor_block_variations: 4 # 2
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ${blocks.train}
+    target_objects:  ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_distractor_block_variations: 2
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ${blocks.train}
+    target_objects:  ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_distractor_block_variations: 2
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ${blocks.train}
+    target_objects:  ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_distractor_block_variations: 2
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ${blocks.train}
+    target_objects:  ${objects.train}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_distractor_block_variations: 2
+  object_description: ${object_descriptions_standard}
+  camera_names: 
+    - 'left_cap2'
+    # - 'eye_in_hand_90'
+    - 'eye_in_hand_45'
+
+eval:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: ${blocks.eval}
+    all: ${blocks.all}
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ${blocks.eval}
+    target_objects: ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_distractor_block_variations: 2
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ${blocks.eval}
+    stack_on_objects: ${blocks.all}
+    # Gives us 6 x 2 x 4 demonstrations
+    num_demos_per_env: 4
+    num_stack_on_objects_for_one_target: 3
+    num_distractor_block_variations: 2
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 4
+    num_distractor_block_variations: 2
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 2
+    num_distractor_block_variations: 2
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 2
+    num_distractor_block_variations: 2
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 2
+    num_distractor_block_variations: 2
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 2
+    num_distractor_block_variations: 2
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_standard}
+  camera_names: 
+    - 'left_cap2'
+    # - 'eye_in_hand_90'
+    - 'eye_in_hand_45'
+
+
+eval_1:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: ${blocks.eval}
+    # NOTE: We use a restricted set of distractor block colors for separate eval configurations.
+    all: ['block_red', 'block_blue', 'block_purple', 'block_yellow', 'block_black']
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ${blocks.eval}
+    target_objects: ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ${blocks.eval}
+    stack_on_objects: ${eval_1.block_colors.all}
+    # Gives us 6 x 2 x 4 demonstrations
+    num_demos_per_env: 1
+    num_stack_on_objects_for_one_target: 3
+    num_distractor_block_variations: 2
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ${blocks.eval}
+    target_objects:  ${objects.eval}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_standard}
+  camera_names: 
+    - 'left_cap2'
+    # - 'eye_in_hand_90'
+    - 'eye_in_hand_45'
+
+# Train/Evaluation for putting colored objects into bin
+train_binpick:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: ['block_red', 'block_green']
+    # NOTE: We use a restricted set of distractor block colors for separate eval configurations.
+    all: ['block_red', 'block_pink', 'block_green', 'block_yellow', 'block_black']
+  binpick:
+    skill_desc: "Pick <target> and place in <color> bin."
+    target_blocks: ${train_binpick.block_colors.target}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 10
+    num_distractor_block_variations: 2
+    env_cfg:
+      task_binpick: True
+      binpick_env_cfg:
+        bin_region: 'left'
+        bin_sampling_region:
+          left:
+            low_xy: [0.1, 0.35]
+            high_xy: [0.4, 0.75]
+            bin_x: [-0.3, 0.0]
+          right:
+            low_xy: [-0.4, 0.35]
+            high_xy: [-0.1, 0.7]
+            bin_x: [0.1, 0.38]
+
+  object_description: ${object_descriptions_standard}
+
+# Usually we should just do 1-shot finetuning but here we can see if we can get better generalization?
+eval_binpick_color:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: ['block_yellow', 'block_black', 'block_pink']
+    # NOTE: We use a restricted set of distractor block colors for separate eval configurations.
+    all: ${train_binpick.block_colors.all}
+  binpick:
+    skill_desc: "Pick <target> and place it in bin."
+    target_blocks: ${eval_binpick_color.block_colors.target}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 10
+    num_distractor_block_variations: 1
+    env_cfg:
+      task_binpick: True
+      binpick_env_cfg:
+        bin_region: 'left'
+        bin_sampling_region:
+          left:
+            low_xy: [0.1, 0.35]
+            high_xy: [0.4, 0.75]
+            bin_x: [-0.3, 0.0]
+          right:
+            low_xy: [-0.4, 0.35]
+            high_xy: [-0.1, 0.7]
+            bin_x: [0.1, 0.38]
+
+  object_description: ${object_descriptions_standard}
+
+eval_binpick_binpos:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: ['block_red', 'block_green']
+    # NOTE: We use a restricted set of distractor block colors for separate eval configurations.
+    all: ${train_binpick.block_colors.all}
+  binpick:
+    skill_desc: "Pick <target> and place it in bin."
+    target_blocks: ${eval_binpick_binpos.block_colors.target}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 10
+    num_distractor_block_variations: 1
+    env_cfg:
+      task_binpick: True
+      binpick_env_cfg:
+        bin_region: 'right'
+        bin_sampling_region:
+          left:
+            low_xy: [0.1, 0.35]
+            high_xy: [0.4, 0.75]
+            bin_x: [-0.3, 0.0]
+          right:
+            low_xy: [-0.4, 0.35]
+            high_xy: [-0.1, 0.7]
+            bin_x: [0.1, 0.38]
+
+  object_description: ${object_descriptions_standard}
+
+
+# Train/Evaluation for button push
+train_buttonpush:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    # Target block does not matter for buttonpush
+    target: ['block_blue']
+    # NOTE: We use a restricted set of distractor block colors for separate eval configurations.
+    # all: ['block_red', 'block_blue', 'block_green', 'block_yellow', 'block_black']
+    all: ['block_blue', 'block_green', 'block_yellow', 'block_black', 'block_purple']
+  buttonpush:
+    skill_desc: "Push red button."
+    skill_desc_lang: "Push red button right."
+    target_blocks: ${train_buttonpush.block_colors.target}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 10
+    num_distractor_block_variations: 2
+    env_cfg:
+      task_buttonpress: True
+      buttonpress_env_cfg:
+        # Add block objects to the left of table (right of robot)
+        table_bounds_low_xy: [-0.0, 0.35]
+        buttonbox_x_range: [-0.4, -0.5]
+        buttonbox_y_range: [0.55, 0.75]
+  object_description: ${object_descriptions_standard}
+
+
+# Usually we should just do 1-shot finetuning but here we can see if we can get better generalization?
+eval_buttonpush:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    # Target block does not matter for buttonpush
+    target: ['block_yellow']
+    # NOTE: We use a restricted set of distractor block colors for separate eval configurations.
+    # all: ${train_binpick.block_colors.all}
+    all: ['block_blue', 'block_green', 'block_yellow', 'block_black', 'block_purple']
+  buttonpush:
+    skill_desc: "Push red button."
+    skill_desc_lang: "Push red button right."
+    target_blocks: ${eval_buttonpush.block_colors.target}
+    target_objects: []
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 10
+    num_distractor_block_variations: 2
+    env_cfg:
+      task_buttonpress: True
+      buttonpress_env_cfg:
+        no_yaml: True
+        # Add block objects to the left of table (right of robot)
+        table_bounds_low_xy: [-0.0, 0.35]
+        buttonbox_x_range: [-0.4, -0.5]
+        # This is the harder OOD distribution for eval.
+        buttonbox_y_range: [0.38, 0.50]
+  object_description: ${object_descriptions_standard}
+
+# Add zero-shot colors that were never even grounded during language pre-training
+eval_ungrounded_novel_color_white:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: 'block_white'
+    all: ['block_white', 'block_red', 'block_black', 'block_blue', 'block_purple']
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ['block_white']
+    target_objects: ${eval_ungrounded_novel_color_white.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ['block_white']
+    stack_on_objects: ${eval_ungrounded_novel_color_white.block_colors.all}
+    # Gives us 6 x 2 x 4 demonstrations
+    num_demos_per_env: 1
+    num_stack_on_objects_for_one_target: 2
+    num_distractor_block_variations: 1
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ['block_white']
+    target_objects:  ${eval_ungrounded_novel_color_white.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ['block_white']
+    target_objects: ${eval_ungrounded_novel_color_white.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ['block_white']
+    target_objects: ${eval_ungrounded_novel_color_white.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ['block_white']
+    target_objects: ${eval_ungrounded_novel_color_white.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ['block_white']
+    target_objects: ${eval_ungrounded_novel_color_white.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_standard}
+  camera_names: 
+    - 'left_cap2'
+    # - 'eye_in_hand_90'
+    - 'eye_in_hand_45'
+
+
+eval_ungrounded_novel_color_skyblue:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: 'block_sky_blue'
+    all: ['block_sky_blue', 'block_red', 'block_pink', 'block_black', 'block_purple']
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ['block_sky_blue']
+    target_objects: ${eval_ungrounded_novel_color_skyblue.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ['block_sky_blue']
+    stack_on_objects: ${eval_ungrounded_novel_color_skyblue.block_colors.all}
+    # Gives us 6 x 2 x 4 demonstrations
+    num_demos_per_env: 1
+    num_stack_on_objects_for_one_target: 2
+    num_distractor_block_variations: 1
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ['block_sky_blue']
+    target_objects:  ${eval_ungrounded_novel_color_skyblue.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ['block_sky_blue']
+    target_objects: ${eval_ungrounded_novel_color_skyblue.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ['block_sky_blue']
+    target_objects: ${eval_ungrounded_novel_color_skyblue.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ['block_sky_blue']
+    target_objects: ${eval_ungrounded_novel_color_skyblue.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ['block_sky_blue']
+    target_objects: ${eval_ungrounded_novel_color_skyblue.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_standard}
+  camera_names: 
+    - 'left_cap2'
+    # - 'eye_in_hand_90'
+    - 'eye_in_hand_45'
+
+
+eval_ungrounded_novel_color_brown:
+  only_use_block_objects: True
+  block_colors:
+    use: True
+    target: 'block_brown'
+    all: ['block_brown', 'block_yellow', 'block_blue', 'block_black', 'block_purple']
+  pick:
+    skill_desc: ${skill_descriptions_standard.pick}
+    target_blocks: ['block_brown']
+    target_objects: ${eval_ungrounded_novel_color_brown.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  stack:
+    skill_desc: ${skill_descriptions_standard.stack}
+    target_blocks: ['block_brown']
+    stack_on_objects: ${eval_ungrounded_novel_color_brown.block_colors.all}
+    # Gives us 6 x 2 x 4 demonstrations
+    num_demos_per_env: 1
+    num_stack_on_objects_for_one_target: 2
+    num_distractor_block_variations: 1
+  pick_and_place:
+    skill_desc: ${skill_descriptions_standard.pick_and_place}
+    target_blocks: ['block_brown']
+    target_objects:  ${eval_ungrounded_novel_color_brown.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_left:
+    skill_desc: ${skill_descriptions_standard.push_left}
+    target_blocks: ['block_brown']
+    target_objects: ${eval_ungrounded_novel_color_brown.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_right:
+    skill_desc: ${skill_descriptions_standard.push_right}
+    target_blocks: ['block_brown']
+    target_objects: ${eval_ungrounded_novel_color_brown.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_forward:
+    skill_desc: ${skill_descriptions_standard.push_forward}
+    target_blocks: ['block_brown']
+    target_objects: ${eval_ungrounded_novel_color_brown.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  push_backward:
+    skill_desc: ${skill_descriptions_standard.push_backward}
+    target_blocks: ['block_brown']
+    target_objects: ${eval_ungrounded_novel_color_brown.block_colors.all}
+    # NOTE: total demos will be num_blocks x num_demos_per_env x num_distractor_block_variations
+    num_demos_per_env: 1
+    num_distractor_block_variations: 2
+  all_coke_colors:
+    - red
+  all_pepsi_colors:
+    - blue
+  all_milk_colors:
+    - white
+  all_bread_colors:
+    - brown
+  all_bottle_colors:
+    - green
+  all_block_sizes:
+    - medium
+  object_description: ${object_descriptions_standard}
+  camera_names: 
+    - 'left_cap2'
+    # - 'eye_in_hand_90'
+    - 'eye_in_hand_45'

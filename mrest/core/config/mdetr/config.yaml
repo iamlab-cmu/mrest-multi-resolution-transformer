@@ -1,0 +1,125 @@
+# resnet50, resnet101, timm_tf_efficientnet_b3_ns
+backbone: resnet101
+train_backbone: False
+freeze_batchnorm: True
+train_transformer: True
+train_transformer_layernorm: True
+train_resizer: True
+
+# Predict masks
+masks: False
+# If true, we replace stride with dilation in the last convolutional block (DC5)
+dilation: False
+
+# sine, learned
+position_embedding: sine
+
+# Transformer args
+enc_layers: 6
+dec_layers: 6
+multiview_enc_layers: 3
+dim_feedforward: 2048
+hidden_dim: 256
+dropout:  0.0
+nheads: 8
+num_queries: 1
+pre_norm: False
+# Enable/Disable passing the positional encodings to each attention layers
+pass_pos_and_query: True
+
+# Many options for different losses (do we need all of them)?
+contrastive_loss: False
+# default is true
+contrastive_align_loss: False
+contrastive_loss_hdim: 64
+eos_coef: 0.1
+
+# roberta-base", "distilroberta-base", "roberta-large"
+text_encoder_type: roberta-base
+# Whether to freeze the weights of the text encoder
+freeze_text_encoder: True
+
+# NOTE: This is true for MDETR which has auxiliary decoding loss
+# at each decoder layer, not sure if this is true for MDETR.
+# Disables auxiliary decoding losses (loss at each layer)
+aux_loss: False
+
+# If true, will predict if a given box is in the actual referred set. Useful for CLEVR-Ref+ only currently.
+predict_final: False
+
+# Whether to use a separate head per question type in vqa
+split_qa_heads: True
+
+# Add proprio as input to transformer encoder
+use_proprio: False
+# How to use the tokens output from the transformer decoder for policy learning
+decoder_out_type: 'first' # 'first', 'avg'
+# Directly add a readout embedding for the transformer encoder. This avoids using MDETR's decoder.
+use_control_readout_emb: True
+output_task_how_encoding: ${policy_config.shared.concat_language}
+task_how_encoder_config:
+  hidden_dim: 256
+  output_dim: 64
+
+# MDETR by default only trains (layer2, layer3, layer4)
+# train_layers: ['layer2', 'layer3', 'layer4']
+train_layers: ['layer1', 'layer2', 'layer3', 'layer4']
+
+multiview:
+  # Attention types: attn_self, only_static ()
+  attn_type: 'attn_cross_2'
+
+  attn_cross_2:
+    dim_feedforward: 768
+    hidden_dim: 256
+    dropout: 0.1
+    nheads: 8
+    pre_norm: False
+    nonlinearity: 'gelu'    # relu, gelu, selu, swish
+    hand_cam_resnet_film_config:
+      use: True
+      use_in_layers: [1, 2, 3]
+      task_embedding_dim: 768
+      film_planes: [64, 128, 256, 512]
+    cam1to2_config:
+      layers: [3, 4, 5]
+      attn_drop: 0.1
+      proj_drop: 0.1
+      use_with_self_attn: True
+      use_after_ffw: False
+    cam2to1_config:
+      layers: [0, 1, 2]
+      attn_drop: 0.1
+      proj_drop: 0.1
+      use_with_self_attn: True
+      use_after_ffw: False
+    cam2_transformer:
+      hidden_dim: 256 
+      dropout: 0.1
+      nheads: 8
+      dim_feedforward: 768
+      enc_layers: 3
+      dec_layers: 0
+      pre_norm: False
+      # Check this
+      pass_pos_and_query: True
+      activation: 'gelu'
+
+    hand_cam_position_encoding:
+      use: True
+      hidden_dim: 256
+      position_embedding: sine   # 'sine', 'learned'
+      # Since we use cross-attn in layers beginning 3, this gets added at 3.
+      layers: [3]
+      add_hand_cam_embedding: True
+    
+  concat:
+      hand_cam_resnet_film_config:
+        use: True
+        use_in_layers: [1, 2, 3]
+        task_embedding_dim: 768
+        film_planes: [64, 128, 256, 512]
+  
+
+  only_static:
+    

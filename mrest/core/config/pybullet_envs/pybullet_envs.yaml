@@ -1,0 +1,86 @@
+use: mt_ballbot_multiview_pickup_fast_multires_PO_obj_sample_act_tsc_des_target
+
+mt_ballbot_multiview_pickup_slow_target:
+    type: ballbot_multiview_pickup_slow_target
+    is_parameterized: True
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/ballbot/ballbot_pickup_slow256_2
+    max_train_tasks: 200
+    num_demos_train_per_task: 280
+    num_demos_val_per_task: 10
+    episode_len: 250
+    names: []
+    camera_names: ['left_cap2', 'eye_in_hand_90']
+    heldout_env_names: []
+    min_action: [-0.006, -0.0125, -0.015, 0.]
+    max_action: [0.006, 0.0125, 0.015, 1.]
+    
+mt_ballbot_multiview_pickup_fast_target:
+    type: ballbot_multiview_pickup_fast_target
+    is_parameterized: True
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/ballbot/ballbot_pickup_fast
+    max_train_tasks: 200
+    num_demos_train_per_task: 210
+    num_demos_val_per_task: 10
+    episode_len: 250
+    names: []
+    camera_names: ['left_cap2', 'eye_in_hand_90']
+    heldout_env_names: []
+    min_action: [-0.006, -0.0125, -0.006, 0.]
+    max_action: [0.006, 0.0125, 0.006, 1.]
+
+mt_ballbot_multiview_pickup_fast_multires_PO_obj_sample_target:
+    type: ballbot_multiview_pickup_fast_multires_PO_obj_sample_target
+    is_parameterized: True
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/ballbot/ballbot_pickup_fast_multires_PO_objloc
+    max_train_tasks: 200
+    num_demos_train_per_task: 530
+    num_demos_val_per_task: 10
+    episode_len: 250
+    names: []
+    camera_names: ['left_cap2', 'eye_in_hand_90']
+    # camera_names: ['left_cap2']
+    heldout_env_names: []
+    min_action: [-0.006, -0.006, -0.006, 0.]
+    max_action: [0.006, 0.006, 0.006, 1.]
+    action_type: delta_obs_pos
+
+mt_ballbot_multiview_pickup_fast_multires_PO_obj_sample_act_tsc_des_target:
+    type: ballbot_multiview_pickup_fast_multires_PO_obj_sample_act_tsc_des_target
+    is_parameterized: True
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/ballbot/ballbot_pickup_fast_multires_PO_objloc
+    max_train_tasks: 200
+    num_demos_train_per_task: 530
+    num_demos_val_per_task: 10
+    episode_len: 250
+    names: []
+    camera_names: ['left_cap2', 'eye_in_hand_90']
+    heldout_env_names: []
+    min_action: [-0.2, 0.5, 1.0, 0.]
+    max_action: [0.5, 1.4, 1.2, 1.]
+    action_type: des_tsc
+
+mt_ballbot_multiview_pickup_fast_multires_PO_obj_sample_act_tsc_des_delta_target:
+    type: ballbot_multiview_pickup_fast_multires_PO_obj_sample_act_tsc_des_delta_target
+    is_parameterized: True
+    record_per_env_eval: True
+    eval_on_heldout_envs: False
+    data_dir: /home/saumyas/experiment_results/object_centric/r3m/data/ballbot/ballbot_pickup_fast_multires_PO_objloc
+    max_train_tasks: 200
+    num_demos_train_per_task: 530
+    num_demos_val_per_task: 10
+    episode_len: 250
+    names: []
+    camera_names: ['left_cap2', 'eye_in_hand_90']
+    # camera_names: ['left_cap2']
+    heldout_env_names: []
+    min_action: [-0.1, -0.0, -0.07, 0.]
+    max_action: [0.04, 0.2, 0.01, 1.]
+    action_type: delta_des_tsc
